@@ -24,11 +24,6 @@ public class BasicController {
     @Autowired
     AdminRepository adminRepository;
 
-    @GetMapping("/get")
-    List<AirportOwner> all() {
-        return airportOwnerRepository.findAll();
-    }
-
     @GetMapping("/post")
     List<Admin> postAdmin(@RequestParam("login") String login, @RequestParam("password") String password, @RequestParam("email") String email) {
         Admin newAdmin = new Admin(login, password, email);

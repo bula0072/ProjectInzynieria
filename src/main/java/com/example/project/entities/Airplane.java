@@ -3,10 +3,8 @@ package com.example.project.entities;
 import com.example.project.entities.users.AirlineOwner;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -21,12 +19,16 @@ public class Airplane {
 
     private Double maxDistance;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private AirlineOwner owner;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Flight> flights;
 
     protected Airplane() {
 
     }
+
     public Airplane(String name, Integer capacity, Double maxDistance, AirlineOwner owner) {
         this.name = name;
         this.capacity = capacity;
