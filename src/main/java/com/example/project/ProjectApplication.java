@@ -1,8 +1,9 @@
 package com.example.project;
 
 import com.example.project.entities.Airplane;
-import com.example.project.entities.users.AirlineOwner;
-import com.example.project.entities.users.AirportOwner;
+import com.example.project.entities.users.Admin;
+import com.example.project.entities.users.Airline;
+import com.example.project.entities.users.Airport;
 import com.example.project.entities.users.User;
 import com.example.project.repositories.*;
 import org.springframework.boot.CommandLineRunner;
@@ -20,14 +21,15 @@ public class ProjectApplication {
     }
 
     @Bean
-    public CommandLineRunner load(AirlineOwnerRepository airlineOwnerRepository,
-                                  AirportOwnerRepository airportOwnerRepository,
+    public CommandLineRunner load(AirlineRepository airlineRepository,
+                                  AirportRepository airportRepository,
                                   UserRepository userRepository,
                                   AirplaneRepository airplaneRepository,
-                                  FlightRepository flightRepository) {
+                                  FlightRepository flightRepository,
+                                  AdminRepository adminRepository) {
         return (args -> {
             try {
-                airlineOwnerRepository.save(new AirlineOwner("User1", "Password1", "email@email.com", "Lotnisko we włoszczowie"));
+                airlineRepository.save(new Airline("User1", "Password1", "email@email.com", "Lotnisko we włoszczowie"));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -37,18 +39,19 @@ public class ProjectApplication {
                 System.out.println(e.getMessage());
             }
             try {
-                airportOwnerRepository.save(new AirportOwner("apoLogin", "Password3", "apoemail@ape.pl", "Szopena", 30, 30d, 20d));
-                airportOwnerRepository.save(new AirportOwner("apo2Login", "Password", "modlin@warszawa.pl", "Warszawa-Modlin", 30, 52.449912, 20.642579));
+                airportRepository.save(new Airport("apoLogin", "Password3", "apoemail@ape.pl", "Szopena", 30, 30d, 20d));
+                airportRepository.save(new Airport("apo2Login", "Password", "modlin@warszawa.pl", "Warszawa-Modlin", 30, 52.449912, 20.642579));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
             try {
-                airplaneRepository.save(new Airplane("Name", 50, 50d, airlineOwnerRepository.findAll().get(0)));
+                airplaneRepository.save(new Airplane("Name", 50, 50d, airlineRepository.findAll().get(0)));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            airlineOwnerRepository.save(new AirlineOwner("AirloneOwner2", "Password1", "email@email.com", "Air line owner 2"));
-            airplaneRepository.save(new Airplane("Name2", 50, 50d, airlineOwnerRepository.findAll().get(1)));
+            airlineRepository.save(new Airline("AirloneOwner2", "Password1", "email@email.com", "Air line owner 2"));
+            airplaneRepository.save(new Airplane("Name2", 50, 50d, airlineRepository.findAll().get(1)));
+            adminRepository.save(new Admin("Adminlogin", "passwordadmin", "Admin@email.com"));
         });
     }
 }

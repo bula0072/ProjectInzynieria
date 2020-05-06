@@ -1,6 +1,7 @@
 package com.example.project.entities;
 
-import com.example.project.entities.users.AirportOwner;
+import com.example.project.entities.users.Airport;
+import com.example.project.interfaces.IInfo;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -11,16 +12,16 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-public class Flight {
+public class Flight implements IInfo {
     @Id
     @GeneratedValue
     private Long id;
     private LocalDate startDate;
     private LocalDate endDate;
     @ManyToOne
-    private AirportOwner startAirport;
+    private Airport startAirport;
     @ManyToOne
-    private AirportOwner endAirport;
+    private Airport endAirport;
     @ManyToOne
     private Airplane airplane;
     private Double cost;
@@ -28,7 +29,7 @@ public class Flight {
     protected Flight() {
     }
 
-    public Flight(LocalDate startDate, LocalDate endDate, AirportOwner startAirport, AirportOwner endAirport, Airplane airplane, Double cost) {
+    public Flight(LocalDate startDate, LocalDate endDate, Airport startAirport, Airport endAirport, Airplane airplane, Double cost) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.startAirport = startAirport;

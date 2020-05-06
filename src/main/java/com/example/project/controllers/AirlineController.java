@@ -1,77 +1,87 @@
 package com.example.project.controllers;
 
-import com.example.project.dto.AirlineInfoForOwnerDTO;
-import com.example.project.dto.AirlineInfoForUnregisteredDTO;
-import com.example.project.dto.AirplaneDTO;
-import com.example.project.entities.users.AirlineOwner;
-import com.example.project.interfaces.IAirlineInfo;
-import com.example.project.repositories.AirlineOwnerRepository;
-import com.example.project.repositories.AirplaneRepository;
-import com.example.project.repositories.FlightRepository;
+import com.example.project.dto.airlines.AirlineDTO;
+import com.example.project.entities.users.Airline;
+import com.example.project.interfaces.IInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-public class AirlineController {
-    AirlineOwnerRepository airlineOwnerRepository;
-    FlightRepository flightRepository;
-    AirplaneRepository airplaneRepository;
-
-    public AirlineController(AirlineOwnerRepository airlineOwnerRepository,
-                             FlightRepository flightRepository,
-                             AirplaneRepository airplaneRepository) {
-        this.airlineOwnerRepository = airlineOwnerRepository;
-        this.flightRepository = flightRepository;
-        this.airplaneRepository = airplaneRepository;
-    }
+public class AirlineController extends BasicController {
+    @Autowired
+    AirlineDTO airlineDTO;
 
     @GetMapping("airlines")
-    List<AirlineInfoForUnregisteredDTO> getAirlines() {
-        List<AirlineInfoForUnregisteredDTO> info = new ArrayList<>();
-        airlineOwnerRepository.findAll().forEach(airlineOwner -> {
-            List<AirplaneDTO> plane = new ArrayList<>();
-            airplaneRepository.findAllByOwner(airlineOwner).forEach(airplanetosend -> {
-                plane.add(new AirplaneDTO(airplanetosend.getName(), airplanetosend.getCapacity(), airplanetosend.getMaxDistance()));
-            });
-            info.add(new AirlineInfoForUnregisteredDTO(airlineOwner.getName(), plane));
-        });
-        return info;
+    List<IInfo> getAllAirlines() {
+        return airlineRepository.findAll().stream().map(airlineDTO::getBasic).collect(Collectors.toList());
     }
 
     @GetMapping("airlines/{id}")
-    IAirlineInfo getAirlineInfo(
+    IInfo getAirlineInfo(
             @PathVariable("id") Long id,
             @RequestParam(name = "token", required = false) Long token
     ) {
-        AirlineOwner airlineOwner = airlineOwnerRepository.findById(id).get();
-        List<AirplaneDTO> plane = new ArrayList<>();
-        airplaneRepository.findAllByOwner(airlineOwner).forEach(p -> {
-            plane.add(new AirplaneDTO(p.getName(), p.getCapacity(), p.getMaxDistance()));
-        });
-        //TODO token przykładowy, zmienić później
-        if (token == null || token != airlineOwner.getId()) {
-            //TODO zmienić tak jak tutaj jest dla innych jeżeli zadziała
-            return new AirlineInfoForUnregisteredDTO(airlineOwner, plane);
+        try {
+            if (airlineRepository.findById(id).isEmpty()) throw new NullPointerException();
+            Airline airline = airlineRepository.findById(id).get();
+            if (tokenIsNullOrNotEquals(token, id)) {
+                return airlineDTO.getBasic(airline);
+            }
+            return airlineDTO.getOwner(airline);
+        } catch (NullPointerException exception) {
+            System.out.println(exception.getMessage());
+            return airlineDTO.getFail();
         }
-        return new AirlineInfoForOwnerDTO(airlineOwner, plane);
     }
 
     @PostMapping("airlines")
-    List<AirlineInfoForUnregisteredDTO> setAirlines(
-            @RequestParam(name = "token") Double token,
+    IInfo setAirlines(
+            @RequestParam(name = "token") Long token,
             @RequestParam(name = "login") String login,
             @RequestParam(name = "password") String password,
             @RequestParam(name = "email") String email,
             @RequestParam(name = "name") String name
     ) {
-        //TODO dodać jeżeli token jest adminem
-        if (token != null) {
-            AirlineOwner airlineOwner = new AirlineOwner(login, password, email, name);
-            airlineOwnerRepository.save(airlineOwner);
+        if (tokenBelongsToAdmin(token))
+            return airlineDTO.getOwner(airlineRepository.save(new Airline(login, password, email, name)));
+        return airlineDTO.getFail();
+    }
+
+    @PatchMapping("airlines/{id}")
+    IInfo patchAirline(
+            @PathVariable("id") Long id,
+            @RequestParam(name = "token", required = false) Long token,
+            @RequestParam(name = "name", required = false) String name
+    ) {
+        try {
+            if (airlineRepository.findById(id).isEmpty() || !tokenBelongsToAdminOrOwner(token, id))
+                throw new Exception();
+            Airline airline = airlineRepository.findById(id).get();
+
+            if (name != null) airline.setName(name);
+
+            return airlineDTO.getOwner(airlineRepository.save(airline));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        return getAirlines();
+        return airlineDTO.getFail();
+    }
+
+    @DeleteMapping("airlines/{id}")
+    List<IInfo> deleteAirline(
+            @PathVariable(name = "id") Long id,
+            @RequestParam(name = "token") Long token
+    ) {
+        try {
+            if(airlineRepository.findById(id).isEmpty() || !tokenBelongsToAdmin(token)) throw new Exception();
+            airlineRepository.delete(airlineRepository.findById(id).get());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return getAllAirlines();
     }
 
 }

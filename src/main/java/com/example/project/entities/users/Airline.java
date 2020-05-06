@@ -2,26 +2,26 @@ package com.example.project.entities.users;
 
 import com.example.project.entities.Airplane;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-public class AirlineOwner extends AbstractUser {
+public class Airline extends AbstractUser {
     private String name;
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Airplane> airplanes;
 
-    protected AirlineOwner() {
+    public Airline() {
     }
 
-    public AirlineOwner(String login, String password, String email, String name) {
+    public Airline(String login, String password, String email, String name) {
         super(login, password, email);
         this.name = name;
     }

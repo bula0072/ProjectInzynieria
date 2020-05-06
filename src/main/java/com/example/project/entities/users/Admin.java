@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 
 @Data
 @Entity
+
 public class Admin extends AbstractUser {
     protected Admin() {
     }
@@ -13,4 +14,5 @@ public class Admin extends AbstractUser {
     public Admin(String login, String password, String email) {
         super(login, password, email);
     }
+
 }
