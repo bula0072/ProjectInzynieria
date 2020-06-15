@@ -1,93 +1,96 @@
 package com.example.project.controllers;
 
-import com.example.project.dto.airports.AirportDTO;
-import com.example.project.entities.users.Airport;
-import com.example.project.interfaces.IInfo;
+import com.example.project.dto.AirportDto1;
+import com.example.project.entity.Airport;
+import com.example.project.repository.AirportRepository;
+import com.example.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-public class AirportController extends BasicController {
+public class AirportController {
     @Autowired
-    AirportDTO airportDTO;
+    AirportRepository airportRepository;
+    @Autowired
+    UserRepository userRepository;
 
-    @GetMapping("airports")
-    List<IInfo> getAllAirports() {
-        return airportRepository.findAll().stream().map(airportDTO::getBasic).collect(Collectors.toList());
+    private final String airportUrl = "airports";
+
+    @GetMapping(airportUrl)
+    List<AirportDto1> getAllAirports() {
+        List<AirportDto1> airportDto1List = new ArrayList<>();
+        airportRepository.findAll().forEach(airport -> airportDto1List.add(new AirportDto1(airport)));
+        return airportDto1List;
     }
 
-    @GetMapping("airports/{id}")
-    IInfo getAirportById(
-            @PathVariable(name = "id") Long id,
-            @RequestParam(name = "token", required = false) Long token
+    @GetMapping(airportUrl + "/{id}")
+    AirportDto1 getAirportById(
+            @PathVariable(name = "id") Long id
     ) {
-        try {
-            if (airportRepository.findById(id).isEmpty()) throw new NullPointerException();
-            Airport airport = airportRepository.findById(id).get();
-            if (tokenIsNullOrNotEquals(token, id)) {
-                return airportDTO.getBasic(airport);
-            }
-            return airportDTO.getOwner(airport);
-        } catch (NullPointerException exception) {
-            System.out.println(exception.getMessage());
-            return airportDTO.getFail();
-        }
+        return new AirportDto1(airportRepository.findById(id).orElseThrow());
     }
 
-    @PostMapping("airports")
-    IInfo postAirport(@RequestParam(name = "token") Long token,
-                      @RequestParam(name = "login") String login,
-                      @RequestParam(name = "password") String password,
-                      @RequestParam(name = "email") String email,
-                      @RequestParam(name = "name") String name,
-                      @RequestParam(name = "capacity") Integer capacity,
-                      @RequestParam(name = "latitude") Double latitude,
-                      @RequestParam(name = "longitude") Double longitude) {
-        //TODO dodać jeżeli token jest adminem
-        if (tokenBelongsToAdmin(token)) {
-            return airportDTO.getOwner(airportRepository.save(new Airport(login, password, email, name, capacity, latitude, longitude)));
+    /*@PostMapping(airportUrl)
+    List<AirportDto1> postNewAirport(
+            @RequestParam(name = "name") String name,
+            @RequestParam(name = "capacity") Integer capacity,
+            @RequestParam(name = "latitude") Double latitude,
+            @RequestParam(name = "longitude") Double longitude,
+            @RequestParam(name = "active", defaultValue = "true") Boolean active,
+            @RequestParam(name = "owner") Long ownerId
+    ) {
+        if (!airportRepository.existsAirportByUserId(ownerId) && userRepository.findByIdAndAccountType_Type(ownerId, "Airport Owner") != null) {
+            Airport airport = new Airport(name, capacity, latitude, longitude, active, userRepository.findByIdAndAccountType_Type(ownerId, "Airport Owner"));
+            airportRepository.save(airport);
         }
-        return airportDTO.getFail();
-    }
+        return getAllAirports();
+    }*/
 
-    @PatchMapping("airports/{id}")
-    IInfo postAirportInfo(
-            @PathVariable("id") Long id,
-            @RequestParam(name = "token", required = false) Long token,
+    @PatchMapping(airportUrl + "/{id}")
+    List<AirportDto1> patchAirport(
+            @PathVariable(name = "id") Long id,
             @RequestParam(name = "name", required = false) String name,
             @RequestParam(name = "capacity", required = false) Integer capacity,
             @RequestParam(name = "latitude", required = false) Double latitude,
             @RequestParam(name = "longitude", required = false) Double longitude
     ) {
-        try {
-            if (airportRepository.findById(id).isEmpty() || !tokenBelongsToAdminOrOwner(token, id))
-                throw new Exception();
-            Airport airport = airportRepository.findById(id).get();
-
-            if (!(name == null)) airport.setName(name);
-            if (!(capacity == null)) airport.setCapacity(capacity);
-            if (!(latitude == null)) airport.setLatitude(latitude);
-            if (!(longitude == null)) airport.setLongitude(longitude);
-
-            return airportDTO.getOwner(airportRepository.save(airport));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        //TODO jeżeli są jakieś loty
+        if (airportRepository.findById(id).orElseThrow().getActive()) {
+            return getAllAirports();
         }
-        return airportDTO.getFail();
+        Airport airport = airportRepository.findById(id).orElseThrow();
+        if (name != null) airport.setName(name);
+        if (capacity != null) airport.setCapacity(capacity);
+        if (latitude != null) airport.setLatitude(latitude);
+        if (longitude != null) airport.setLongitude(longitude);
+        airport.setActive(true);
+        airportRepository.save(airport);
+        return getAllAirports();
     }
 
-    @DeleteMapping("airports/{id}")
-    List<IInfo> deleteAirport(@PathVariable(name = "id") Long id,
-                              @RequestParam(name = "token") Long token) {
-        try {
-            if (!tokenBelongsToAdmin(token) || airportRepository.findById(id).isEmpty()) throw new Exception();
-            airportRepository.delete(airportRepository.findById(id).get());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+    @DeleteMapping(airportUrl + "/{id}")
+    List<AirportDto1> deleteAirport(
+            @PathVariable(name = "id") Long id
+    ) {
+        //TODO jeżeli są jakieś loty
+        if (airportRepository.findById(id).orElseThrow().getActive()) {
+            return getAllAirports();
         }
+        airportRepository.delete(airportRepository.findById(id).orElseThrow());
+        return getAllAirports();
+    }
+
+    @PatchMapping(airportUrl + "/{id}/active")
+    List<AirportDto1> changeActive(
+            @PathVariable(name = "id") Long id,
+            @RequestParam(name = "active") Boolean active
+    ) {
+        Airport airport = airportRepository.findById(id).orElseThrow();
+        airport.setActive(active);
+        airportRepository.save(airport);
         return getAllAirports();
     }
 }

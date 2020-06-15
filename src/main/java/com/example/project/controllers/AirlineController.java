@@ -1,86 +1,64 @@
 package com.example.project.controllers;
 
-import com.example.project.dto.airlines.AirlineDTO;
-import com.example.project.entities.users.Airline;
-import com.example.project.interfaces.IInfo;
+import com.example.project.dto.AirlineDto1;
+import com.example.project.entity.Airline;
+import com.example.project.repository.AirlineRepository;
+import com.example.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-public class AirlineController extends BasicController {
+public class AirlineController {
     @Autowired
-    AirlineDTO airlineDTO;
+    AirlineRepository airlineRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping("airlines")
-    List<IInfo> getAllAirlines() {
-        return airlineRepository.findAll().stream().map(airlineDTO::getBasic).collect(Collectors.toList());
+    List<AirlineDto1> getAllAirlines() {
+        List<AirlineDto1> airlines = new ArrayList<>();
+        airlineRepository.findAll().forEach(airline -> airlines.add(new AirlineDto1(airline)));
+        return airlines;
     }
 
     @GetMapping("airlines/{id}")
-    IInfo getAirlineInfo(
-            @PathVariable("id") Long id,
-            @RequestParam(name = "token", required = false) Long token
+    AirlineDto1 getAirlineById(
+            @PathVariable(name = "id") Long id
     ) {
-        try {
-            if (airlineRepository.findById(id).isEmpty()) throw new NullPointerException();
-            Airline airline = airlineRepository.findById(id).get();
-            if (tokenIsNullOrNotEquals(token, id)) {
-                return airlineDTO.getBasic(airline);
-            }
-            return airlineDTO.getOwner(airline);
-        } catch (NullPointerException exception) {
-            System.out.println(exception.getMessage());
-            return airlineDTO.getFail();
-        }
+        return new AirlineDto1(airlineRepository.findById(id).orElseThrow());
     }
 
-    @PostMapping("airlines")
-    IInfo setAirlines(
-            @RequestParam(name = "token") Long token,
-            @RequestParam(name = "login") String login,
-            @RequestParam(name = "password") String password,
-            @RequestParam(name = "email") String email,
-            @RequestParam(name = "name") String name
+    /*@PostMapping("airlines")
+    List<AirlineDto1> postNewAirline(
+            @RequestParam(name = "name") String name,
+            @RequestParam(name = "user") Long id
     ) {
-        if (tokenBelongsToAdmin(token))
-            return airlineDTO.getOwner(airlineRepository.save(new Airline(login, password, email, name)));
-        return airlineDTO.getFail();
+        if (!airlineRepository.existsAirlineByUserId(id) && userRepository.findByIdAndAccountType_Type(id, "Airline Owner") != null) {
+            Airline airline = new Airline(name, userRepository.findByIdAndAccountType_Type(id, "Airline Owner"));
+            airlineRepository.save(airline);
+        }
+        return getAllAirlines();
+    }*/
+
+    @DeleteMapping("airlines/{id}")
+    List<AirlineDto1> deleteAirline(
+            @PathVariable(name = "id") Long id
+    ) {
+        airlineRepository.deleteById(id);
+        return getAllAirlines();
     }
 
     @PatchMapping("airlines/{id}")
-    IInfo patchAirline(
-            @PathVariable("id") Long id,
-            @RequestParam(name = "token", required = false) Long token,
-            @RequestParam(name = "name", required = false) String name
-    ) {
-        try {
-            if (airlineRepository.findById(id).isEmpty() || !tokenBelongsToAdminOrOwner(token, id))
-                throw new Exception();
-            Airline airline = airlineRepository.findById(id).get();
-
-            if (name != null) airline.setName(name);
-
-            return airlineDTO.getOwner(airlineRepository.save(airline));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return airlineDTO.getFail();
-    }
-
-    @DeleteMapping("airlines/{id}")
-    List<IInfo> deleteAirline(
+    List<AirlineDto1> patchAirline(
             @PathVariable(name = "id") Long id,
-            @RequestParam(name = "token") Long token
+            @RequestParam(name = "name") String name
     ) {
-        try {
-            if(airlineRepository.findById(id).isEmpty() || !tokenBelongsToAdmin(token)) throw new Exception();
-            airlineRepository.delete(airlineRepository.findById(id).get());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        Airline airline = airlineRepository.findById(id).orElseThrow();
+        if (name != null) airline.setName(name);
+        airlineRepository.save(airline);
         return getAllAirlines();
     }
 
