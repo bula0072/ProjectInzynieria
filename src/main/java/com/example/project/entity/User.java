@@ -13,34 +13,34 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long id;
+    public Long id;
 
     @NotBlank
     @Column(name = "login")
-    private String login;
+    public String login;
 
     @NotBlank
     @Column(name = "password")
-    private String password;
+    public String password;
 
     @NotBlank
     @Column(name = "email")
-    private String email;
+    public String email;
 
     @Column(name = "roles")
-    private String roles;
+    public String roles;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private Airline airline;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    public Airline airline;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private Airport airport;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private Set<Ticket> tickets;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    public Airport airport;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private Set<Airplane> airplane;
+    public Set<Ticket> tickets;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    public Set<Airplane> airplane;
 
     public User(String login, String password, String email) {
         this.login = login;

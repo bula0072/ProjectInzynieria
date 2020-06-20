@@ -6,5 +6,9 @@ import org.springframework.data.rest.webmvc.RepositoryRestController;
 
 @RepositoryRestController
 public interface AirportRepository extends JpaRepository<Airport, Long> {
-    Boolean existsAirportByUserId(Long id);
+    Boolean existsByName(String name);
+
+    Airport findByName(String name);
+
+    Boolean existsAirportByUserId(Long is);
 }

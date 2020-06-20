@@ -8,7 +8,11 @@ import java.util.List;
 
 @RepositoryRestController
 public interface AirplaneRepository extends JpaRepository<Airplane, Long> {
-    List<Airplane> findAllByUser_Id(Long id);
+    List<Airplane> findAllByUser_Login(String username);
 
     Boolean existsAirplaneByUserId(Long id);
+
+    Airplane findAirplaneById(Long id);
+
+
 }
