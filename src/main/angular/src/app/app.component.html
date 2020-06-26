@@ -1,1 +1,21 @@
-<app-login></app-login>
+  <app-navigation-bar [loggedIn]="loggedIn"></app-navigation-bar>
+
+
+
+
+
+  <router-outlet></router-outlet>
+  <!--<ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">-->
+  <!--  <li class="nav-item">-->
+  <!--    <a href="/login" class="nav-link" routerLink="login">Login</a>-->
+  <!--  </li>-->
+  <!--</ul>-->
+
+  <!--<ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">-->
+  <!--  <li class="nav-item">-->
+  <!--    <a href="#" class="nav-link">{{ username }}</a>-->
+  <!--  </li>-->
+  <!--  <li class="nav-item">-->
+  <!--    <a href class="nav-link" (click)="logout()">LogOut</a>-->
+  <!--  </li>-->
+  <!--</ul>-->

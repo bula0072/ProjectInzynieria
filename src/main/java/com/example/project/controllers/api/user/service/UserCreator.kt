@@ -3,11 +3,13 @@ package com.example.project.controllers.api.user.service
 import com.example.project.dto.UserChangeDto
 import com.example.project.entity.User
 import com.example.project.repository.UserRepository
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
 class UserCreator(
-        private val userRepository: UserRepository
+        private val userRepository: UserRepository,
+        private val passwordEncoder: PasswordEncoder
 ) {
 
 
@@ -29,6 +31,6 @@ class UserCreator(
         if (userRepository.existsByLogin(newUser.username)) throw Exception("${newUser.username} = użytkownik już istnieje")
         if (userRepository.existsByEmail(newUser.email)) throw Exception("${newUser.email} = email już istnieje")
 
-        return userRepository.save(User(newUser.username, newUser.password, newUser.email))
+        return userRepository.save(User(newUser.username, passwordEncoder.encode(newUser.password), newUser.email))
     }
 }

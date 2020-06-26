@@ -34,7 +34,7 @@ public class Airport {
     @Column(name = "active")
     public Boolean active;
 
-    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToOne
     @JoinColumn(name = "users_id", referencedColumnName = "id")
     public User user;
 

@@ -8,6 +8,7 @@ import com.example.project.dto.AirlineNewDto
 import com.example.project.dto.UserChangeDto
 import com.example.project.repository.AirlineRepository
 import org.junit.Assert
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -27,8 +28,6 @@ internal class AirlineEditorTest @Autowired constructor(
 
     @BeforeEach
     fun setUp() {
-        airlineRepository.deleteAll()
-        userDestructor.deleteAllUser()
         adminApi.changeRole(userCreator.create(
                 UserChangeDto(
                         "user",
@@ -46,8 +45,14 @@ internal class AirlineEditorTest @Autowired constructor(
                 "airlineOwner"))
     }
 
+    @AfterEach
+    internal fun tearDown() {
+        airlineRepository.deleteAll()
+        userDestructor.deleteAllUser()
+    }
+
     @Test
-    fun airlineEditShouldBeOk() {
+    fun shouldEditName() {
         Assert.assertTrue(
                 "should change name",
                 airlineEditor.edit(
@@ -57,18 +62,22 @@ internal class AirlineEditorTest @Autowired constructor(
                 "should be true",
                 airlineRepository.existsByName("NewAirlineName"))
         Assert.assertFalse(
-                "should be false",
+                "should be false because this airline has new name",
                 airlineRepository.existsByName("AirlineName")
         )
     }
 
     @Test
-    fun airlineEditButNameEmptyOrNull() {
+    fun shouldBeFalseBecauseNewAirlineNameIsNull() {
         Assert.assertFalse(
                 "should be false / name is null",
                 airlineEditor.edit(
                         "AirlineName",
                         AirlineChangeDto(null)))
+    }
+
+    @Test
+    fun shouldBeFalseBecauseNewAirlineNameIsEmpty() {
         Assert.assertFalse(
                 "should be false / name is empty",
                 airlineEditor.edit(
@@ -77,17 +86,25 @@ internal class AirlineEditorTest @Autowired constructor(
     }
 
     @Test
-    fun airlineEditButPreviousNameDoesNotExist() {
+    fun shouldBeFalseBecauseAirlineWithPreviousNameDoesntExists() {
         Assert.assertFalse(
                 "should be false / airline not exist",
                 airlineEditor.edit(
                         "AirlineFake",
                         AirlineChangeDto("newName")))
+    }
+
+    @Test
+    fun shouldBeFalseBecauseAirlinePreviousNameIsNull() {
         Assert.assertFalse(
                 "should be false / airline is null",
                 airlineEditor.edit(
                         null,
                         AirlineChangeDto("newName")))
+    }
+
+    @Test
+    fun shouldBeFalseBecauseAirlinePrevioisNameIsEmpty() {
         Assert.assertFalse(
                 "should be false / airline is empty",
                 airlineEditor.edit(
@@ -96,7 +113,7 @@ internal class AirlineEditorTest @Autowired constructor(
     }
 
     @Test
-    fun airlineEditButNameAlreadyExist() {
+    fun shouldBeFalseBecauseNewAirlineNameAlreadyExistsInDatabase() {
         adminApi.changeRole(userCreator.create(
                 UserChangeDto(
                         "airlineOwner2",

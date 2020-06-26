@@ -2,7 +2,6 @@ package com.example.project.controllers.api.airplane
 
 import com.example.project.controllers.api.airplane.service.AirplaneCreator
 import com.example.project.controllers.api.airplane.service.AirplaneDestructor
-import com.example.project.controllers.api.user.UserApi
 import com.example.project.dto.AirplaneBasicDto
 import com.example.project.dto.AirplaneNewDto
 import com.example.project.entity.Airplane
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/airplanes")
 class AirplaneApi(
         private val airplaneRepository: AirplaneRepository,
-        private val userApi: UserApi,
         private val airplaneDestructor: AirplaneDestructor,
         private val airplaneCreator: AirplaneCreator
 ) {
@@ -41,7 +39,7 @@ class AirplaneApi(
 
     @PostMapping
     fun postNewAirplane(@RequestBody newAirplane: AirplaneNewDto): Boolean =
-            airplaneCreator.create(newAirplane, userApi)
+            airplaneCreator.create(newAirplane)
 
     fun getAllAirplanes(): MutableList<Airplane> = airplaneRepository.findAll()
 

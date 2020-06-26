@@ -12,7 +12,7 @@ class TicketBasicDto(
 }
 
 class TicketNewDto(
-        val quantity: Int,
-        val user: String,
-        val flight: Long
+        val quantity: Int?,
+        val user: String?,
+        val flight: Long?
 )

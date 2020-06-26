@@ -9,9 +9,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -31,16 +34,16 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
+        /*http
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(new AuthenticationFilter(authenticationManager()))
                 .addFilter(new AuthorizationFilter(authenticationManager(), this.userRepository))
                 .authorizeRequests()
-                .anyRequest().permitAll();
-                /*
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .anyRequest().permitAll();*/
+                /*
+
                 .antMatchers(HttpMethod.POST, "/api/admins/addRole").permitAll()
                 .antMatchers("/api/public/**").permitAll()
                // .antMatchers("/api/admin/**").hasRole("ADMIN")
@@ -48,6 +51,40 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/airport/**").hasAnyRole("ADMIN", "AIRPORT_OWNER")
                 .antMatchers("/api/planes/**").hasAnyRole("ADMIN", "AIRLINE_OWNER")
                 .anyRequest().authenticated();*/
+
+        http
+                .csrf().disable().cors()
+                .and()
+                .addFilter(new AuthenticationFilter(authenticationManager()))
+                .addFilter(new AuthorizationFilter(authenticationManager(), this.userRepository))
+                .authorizeRequests().antMatchers(HttpMethod.POST, "/api/**").permitAll()
+                .anyRequest().permitAll();
+    }
+
+  /*  @Bean
+    protected CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
+    }*/
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("*");
+        config.addExposedHeader("Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, " +
+                "Content-Type, Access-Control-Request-Method, Custom-Filter-Header");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("OPTIONS");
+        config.addAllowedMethod("GET");
+        config.addAllowedMethod("PATCH");
+        config.addAllowedMethod("POST");
+        config.addAllowedMethod("PUT");
+        config.addAllowedMethod("DELETE");
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
     }
 
     @Bean

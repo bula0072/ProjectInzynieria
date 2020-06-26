@@ -1,0 +1,120 @@
+<div class="container">
+  <div style="width:300px;margin-left: auto;margin-right: auto;margin-top:24px;">
+    <div class="card">
+      <div class="card-header">
+        Nowy lot
+      </div>
+      <form
+        name="form"
+        (ngSubmit)="onSubmit()">
+        <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css"/>
+        <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form {
+          font-family: Arial, Helvetica, sans-serif;
+          color: black
+        }
+
+        .bootstrap-iso form button, .bootstrap-iso form button:hover {
+          color: white !important;
+        }
+
+        .asteriskField {
+          color: red;
+        }</style>
+        <div class="bootstrap-iso">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col">
+                <form method="post">
+                  <div class="form-group ">
+                    <label class="control-label " for="cost">
+                      Koszt lotu
+                    </label>
+                    <input class="form-control"
+                           id="cost"
+                           name="cost"
+                           type="text"
+                           [(ngModel)]="form.cost"
+                           #cost="ngModel"/>
+                  </div>
+                  <div class="form-group ">
+                    <label class="control-label " for="startAirport">
+                      Lotnisko startowe
+                    </label>
+                    <select class="select form-control" id="startAirport" name="startAirport"
+                            [(ngModel)]="form.startAirport"
+                            #startAirport="ngModel">
+                      <ng-container *ngFor="let h of airports | async">
+                        <option value="{{h.name}}">
+                          {{h.name}}
+                        </option>
+                      </ng-container>
+                    </select>
+                  </div>
+                  <div class="form-group ">
+                    <label class="control-label " for="date">
+                      Start
+                    </label>
+                    <input class="form-control"
+                           id="date"
+                           name="date"
+                           placeholder="DD/MM/YYYY-HH:MM"
+                           type="text"
+                           [(ngModel)]="form.startDate"
+                           #startDate="ngModel"/>
+                  </div>
+                  <div class="form-group ">
+                    <label class="control-label " for="endAirport">
+                      Lotnisko końcowe
+                    </label>
+                    <select class="select form-control" id="endAirport" name="endAirport"
+                            [(ngModel)]="form.endAirport"
+                            #endAirport="ngModel">
+                      <ng-container *ngFor="let h of airports | async">
+                        <option value="{{h.name}}">
+                          {{h.name}}
+                        </option>
+                      </ng-container>
+                    </select>
+                  </div>
+                  <div class="form-group ">
+                    <label class="control-label " for="endDate">
+                      Koniec
+                    </label>
+                    <input class="form-control"
+                           id="endDate"
+                           name="endDate"
+                           placeholder="DD/MM/YYYY-HH:MM"
+                           type="text"
+                           [(ngModel)]="form.endDate"
+                           #endDate="ngModel"/>
+                  </div>
+                  <div class="form-group ">
+                    <label class="control-label " for="airplane">
+                      Samolot
+                    </label>
+                    <select class="select form-control" id="airplane" name="airplane"
+                            [(ngModel)]="form.airplane"
+                            #airplane="ngModel">
+                      <ng-container *ngFor="let h of planes | async">
+                        <option value="{{h.id}}">
+                          {{h.id}} | {{h.name}}
+                        </option>
+                      </ng-container>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <div>
+                      <button class="btn btn-primary " name="submit" type="submit">
+                        Dodaj
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,7 @@ package com.example.project.controllers.api.user.service
 import com.example.project.dto.UserChangeDto
 import com.example.project.repository.UserRepository
 import org.junit.Assert
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -21,11 +22,14 @@ internal class UserEditorTest @Autowired constructor(
 
     @BeforeEach
     fun setUp() {
-        userDestructor.deleteAllUser()
-
         userCreator.createUser(UserChangeDto("basic",
                 "password",
                 "basic@gmail.com"))
+    }
+
+    @AfterEach
+    internal fun tearDown() {
+        userDestructor.deleteAllUser()
     }
 
     @Test

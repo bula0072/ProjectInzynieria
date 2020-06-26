@@ -8,11 +8,12 @@ import org.springframework.stereotype.Service
 
 @Service
 class AirplaneCreator(
-        private val airplaneRepository: AirplaneRepository
+        private val airplaneRepository: AirplaneRepository,
+        private val userApi: UserApi
 ) {
-    fun create(airplane: AirplaneNewDto, userApi: UserApi): Boolean {
+    fun create(airplane: AirplaneNewDto): Boolean {
         try {
-            creation(airplane, userApi)
+            creator(airplane)
         } catch (e: Exception) {
             print(e.message)
             return false
@@ -20,7 +21,7 @@ class AirplaneCreator(
         return true
     }
 
-    private fun creation(airplane: AirplaneNewDto, userApi: UserApi) {
+    fun creator(airplane: AirplaneNewDto): Airplane {
         if (airplane.name.isNullOrEmpty()) throw Exception("ap name null or blank")
         val user = userApi.getUserByName(airplane.user)
         if (user == null
@@ -32,7 +33,7 @@ class AirplaneCreator(
         if (airplane.maxDistance == null
                 || airplane.maxDistance <= 0)
             throw Exception("za mały dystans")
-        airplaneRepository.save(Airplane(airplane.name,
+        return airplaneRepository.save(Airplane(airplane.name,
                 airplane.capacity,
                 airplane.maxDistance,
                 userApi.getUserByName(airplane.user)))

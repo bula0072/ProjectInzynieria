@@ -10,5 +10,9 @@ public interface AirportRepository extends JpaRepository<Airport, Long> {
 
     Airport findByName(String name);
 
+    Airport findAirportByName(String name);
+
     Boolean existsAirportByUserId(Long is);
+
+    Airport findAirportByUser_Login(String name);
 }

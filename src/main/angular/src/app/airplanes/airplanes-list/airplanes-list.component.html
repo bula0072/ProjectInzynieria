@@ -1,0 +1,33 @@
+<table class="table">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Id</th>
+    <th scope="col">Nazwa</th>
+    <th scope="col">Maksymalny dystans</th>
+    <th scope="col">Maksymalna ilość osób</th>
+    <th scope="col">
+      <a class="btn btn-primary col-5" style="text-decoration: none; color: white">
+        Dodaj
+      </a>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-container *ngFor="let t of airplanes | async; index as i">
+    <tr>
+      <th scope="row">{{i + 1}}</th>
+      <td>{{t.id}}</td>
+      <td>{{t.name}}</td>
+      <td>{{t.maxDistance}}</td>
+      <td>{{t.capacity}}</td>
+      <td>
+        <a class="btn btn-danger col-5" style="color: white; text-decoration: none"
+        (click)="removePlane(t.id)">
+          Usuń
+        </a>
+      </td>
+    </tr>
+  </ng-container>
+  </tbody>
+</table>

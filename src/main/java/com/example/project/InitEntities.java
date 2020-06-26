@@ -2,17 +2,13 @@ package com.example.project;
 
 import com.example.project.controllers.api.admin.AdminApi;
 import com.example.project.controllers.api.airline.AirlineApi;
-import com.example.project.controllers.api.airline.FlightApi;
 import com.example.project.controllers.api.airplane.AirplaneApi;
 import com.example.project.controllers.api.airport.AirportApi;
+import com.example.project.controllers.api.flight.FlightApi;
+import com.example.project.controllers.api.flight.service.FlightCreator;
 import com.example.project.controllers.api.user.UserApi;
 import com.example.project.controllers.api.user.service.UserCreator;
-import com.example.project.dto.AirlineNewDto;
-import com.example.project.dto.AirplaneNewDto;
-import com.example.project.dto.AirportNewDto;
-import com.example.project.dto.UserChangeDto;
-import com.example.project.entity.Flight;
-import com.example.project.entity.Ticket;
+import com.example.project.dto.*;
 import com.example.project.repository.FlightRepository;
 import com.example.project.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,147 +20,157 @@ import java.time.Instant;
 @Component
 public class InitEntities implements CommandLineRunner {
 
-    @Autowired
-    FlightRepository flightRepository;
-    @Autowired
-    TicketRepository ticketRepository;
-    UserApi userApi;
-    AdminApi adminApi;
-    AirlineApi airlineApi;
-    AirportApi airportApi;
-    AirplaneApi airplaneApi;
-    FlightApi flightApi;
-    UserCreator userCreator;
+	@Autowired
+	TicketRepository ticketRepository;
+	@Autowired
+	FlightRepository flightRepository;
+	UserApi userApi;
+	AdminApi adminApi;
+	AirlineApi airlineApi;
+	AirportApi airportApi;
+	AirplaneApi airplaneApi;
+	FlightApi flightApi;
+	UserCreator userCreator;
+	FlightCreator flightCreator;
 
-    public InitEntities(UserApi userApi,
-                        AdminApi adminApi,
-                        AirlineApi airlineApi,
-                        AirportApi airportApi,
-                        AirplaneApi airplaneApi,
-                        FlightApi flightApi,
-                        UserCreator userCreator) {
-        this.userApi = userApi;
-        this.adminApi = adminApi;
-        this.airlineApi = airlineApi;
-        this.airportApi = airportApi;
-        this.airplaneApi = airplaneApi;
-        this.flightApi = flightApi;
-        this.userCreator = userCreator;
-    }
 
-    @Override
-    public void run(String... args) throws Exception {
-       /* initUser();
-        initAirline();
-        initAirport();
-        initAirplanes();
-        initFlight();
-        initTicket();*/
-    }
+	public InitEntities(UserApi userApi,
+						AdminApi adminApi,
+						AirlineApi airlineApi,
+						AirportApi airportApi,
+						AirplaneApi airplaneApi,
+						FlightApi flightApi,
+						UserCreator userCreator,
+						FlightCreator flightCreator) {
+		this.userApi = userApi;
+		this.adminApi = adminApi;
+		this.airlineApi = airlineApi;
+		this.airportApi = airportApi;
+		this.airplaneApi = airplaneApi;
+		this.flightApi = flightApi;
+		this.userCreator = userCreator;
+		this.flightCreator = flightCreator;
+	}
 
-    private void initTicket() {
-        ticketRepository.save(new Ticket(
-                15,
-                userApi.getUserByName("user"),
-                flightRepository.findAll().get(0)
-        ));
-    }
+	@Override
+	public void run(String... args) throws Exception {
+		initUser();
 
-    private void initFlight() {
-        flightRepository.save(new Flight(
-                50.50,
-                Instant.now(),
-                Instant.now().plusMillis(500),
-                airportApi.getAirportByName("AirportName"),
-                airportApi.getAirportByName("AirportName"),
-                airplaneApi.getAllAirplanes().get(1)
-        ));
+		initAirline();
+		initAirport();
+		initAirplanes();
+		initFlight();
+//        initTicket();
+	}
 
-        flightRepository.save(new Flight(
-                50.50,
-                Instant.now().plusMillis(50000),
-                Instant.now().plusMillis(55000),
-                airportApi.getAirportByName("AirportName"),
-                airportApi.getAirportByName("AirportName"),
-                airplaneApi.getAllAirplanes().get(0)
-        ));
+	private void initFlight() {
+		flightCreator.create(new FlightNewDto(
+				50.50,
+				Instant.now().toString(),
+				Instant.now().plusSeconds(500).toString(),
+				"AirportName1",
+				"AirportName2",
+				airplaneApi.getAllAirplanes().get(1).id
+		));
 
-        flightRepository.save(new Flight(
-                50.50,
-                Instant.now().plusMillis(80000),
-                Instant.now().plusMillis(90000),
-                airportApi.getAirportByName("AirportName"),
-                airportApi.getAirportByName("AirportName"),
-                airplaneApi.getAllAirplanes().get(1)
-        ));
+		flightCreator.create(new FlightNewDto(
+				50.50,
+				Instant.now().plusSeconds(50000).toString(),
+				Instant.now().plusSeconds(55000).toString(),
+				"AirportName1",
+				"AirportName2",
+				airplaneApi.getAllAirplanes().get(1).id
+		));
 
-    }
+		flightCreator.create(new FlightNewDto(
+				50.50,
+				Instant.now().plusSeconds(80000).toString(),
+				Instant.now().plusSeconds(95000).toString(),
+				"AirportName1",
+				"AirportName2",
+				airplaneApi.getAllAirplanes().get(1).id
+		));
+	}
 
-    private void initAirplanes() {
-        airplaneApi.postNewAirplane(new AirplaneNewDto(
-                "Airplane",
-                100,
-                50.10,
-                "airlineowner1"
-        ));
-        airplaneApi.postNewAirplane(new AirplaneNewDto(
-                "Airplane123",
-                100,
-                50.10,
-                "airlineowner2"
-        ));
-    }
+	private void initAirplanes() {
+		airplaneApi.postNewAirplane(new AirplaneNewDto(
+				"Airplane",
+				100,
+				50.10,
+				"airlineowner1"
+		));
+		airplaneApi.postNewAirplane(new AirplaneNewDto(
+				"Airplane123",
+				100,
+				50.10,
+				"airlineowner1"
+		));
+	}
 
-    private void initAirport() {
+	private void initAirport() {
+		airportApi.postNewAirport(new AirportNewDto(
+				"AirportName1",
+				10,
+				50.50,
+				30.30,
+				"portowner"
+		));
         airportApi.postNewAirport(new AirportNewDto(
-                "AirportName",
+                "AirportName2",
                 10,
                 50.50,
                 30.30,
-                "portowner"
+                "portowner2"
         ));
-    }
+	}
 
-    private void initAirline() {
-        airlineApi.postNewAirline(new AirlineNewDto("AirlineName", "airlineowner1"));
-        airlineApi.postNewAirline(new AirlineNewDto("AirlineName123", "airlineowner2"));
-    }
+	private void initAirline() {
+		airlineApi.postNewAirline(new AirlineNewDto("AirlineName", "airlineowner1"));
+		airlineApi.postNewAirline(new AirlineNewDto("AirlineName123", "airlineowner2"));
+	}
 
-    private void initUser() {
+	private void initUser() {
+		adminApi.changeRole((
+				userCreator.create(
+						new UserChangeDto(
+								"userinit1",
+								"password",
+								"emailinit1@gmail.com"
+						))), "USER");
+		adminApi.changeRole((
+				userCreator.create(
+						new UserChangeDto(
+								"airlineowner1",
+								"password",
+								"airlineowner1init1@gmail.com"
+						))), "AIRLINE_OWNER");
+		adminApi.changeRole((
+				userCreator.create(
+						new UserChangeDto(
+								"airlineowner2",
+								"password",
+								"airlineowner2init1@gmail.com"
+						))), "AIRLINE_OWNER");
+		adminApi.changeRole((
+				userCreator.create(
+						new UserChangeDto(
+								"portowner",
+								"password",
+								"airport@init.com"
+						))), "AIRPORT_OWNER");
         adminApi.changeRole((
                 userCreator.create(
                         new UserChangeDto(
-                                "userinit1",
+                                "portowner2",
                                 "password",
-                                "emailinit1@gmail.com"
-                        ))), "USER");
-        adminApi.changeRole((
-                userCreator.create(
-                        new UserChangeDto(
-                                "airlineowner1init1",
-                                "password",
-                                "airlineowner1init1@gmail.com"
-                        ))), "AIRLINE_OWNER");
-        adminApi.changeRole((
-                userCreator.create(
-                        new UserChangeDto(
-                                "airlineowner21init1",
-                                "password",
-                                "airlineowner2init1@gmail.com"
-                        ))), "AIRLINE_OWNER");
-        adminApi.changeRole((
-                userCreator.create(
-                        new UserChangeDto(
-                                "portownerinit",
-                                "password",
-                                "airport@init.com"
+                                "airport2@init.com"
                         ))), "AIRPORT_OWNER");
-        adminApi.changeRole((
-                userCreator.create(
-                        new UserChangeDto(
-                                "admin",
-                                "password",
-                                "admin@init.com"
-                        ))), "ADMIN");
-    }
+		adminApi.changeRole((
+				userCreator.create(
+						new UserChangeDto(
+								"admin",
+								"password",
+								"admin@init.com"
+						))), "ADMIN");
+	}
 }

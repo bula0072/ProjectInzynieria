@@ -7,6 +7,7 @@ import com.example.project.dto.AirlineNewDto
 import com.example.project.dto.UserChangeDto
 import com.example.project.repository.AirlineRepository
 import org.junit.Assert
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,8 +27,6 @@ internal class AirlineDestructorTest @Autowired constructor(
 
     @BeforeEach
     fun setUp() {
-        airlineRepository.deleteAll()
-        userDestructor.deleteAllUser()
         adminApi.changeRole(userCreator.create(
                 UserChangeDto(
                         "user",
@@ -45,8 +44,14 @@ internal class AirlineDestructorTest @Autowired constructor(
                 "airlineOwner"))
     }
 
+    @AfterEach
+    internal fun tearDown() {
+        airlineRepository.deleteAll()
+        userDestructor.deleteAllUser()
+    }
+
     @Test
-    fun airlineDeleteShouldBeOk() {
+    fun shouldDeleteAirlineFromDatabase() {
         Assert.assertEquals(
                 "Should be 1 airline",
                 1,
@@ -61,13 +66,21 @@ internal class AirlineDestructorTest @Autowired constructor(
     }
 
     @Test
-    fun airlineDeleteButThereIsOnAirlineLikeThat() {
+    fun shouldBeFalseBecauseAirlineDoesntExists() {
         Assert.assertFalse(
-                "There is no airline lik that",
+                "There is no airline like that",
                 airlineDestructor.delete("AirlineFakeName"))
+    }
+
+    @Test
+    fun shouldBeFalseBecauseAirlineNameIsNull() {
         Assert.assertFalse(
                 "airline name is null",
                 airlineDestructor.delete(null))
+    }
+
+    @Test
+    fun shouldBeFalseBecauseAirlineNameIsEmpty() {
         Assert.assertFalse(
                 "airline name is empty",
                 airlineDestructor.delete("")

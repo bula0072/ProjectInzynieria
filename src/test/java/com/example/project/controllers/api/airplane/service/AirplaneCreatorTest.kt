@@ -9,6 +9,7 @@ import com.example.project.dto.UserChangeDto
 import com.example.project.repository.AirplaneRepository
 import com.example.project.repository.UserRepository
 import org.junit.Assert
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -28,9 +29,6 @@ internal class AirplaneCreatorTest @Autowired constructor(
 ) {
     @BeforeEach
     internal fun setUp() {
-        airplaneRepository.deleteAll()
-        userDestructor.deleteAllUser()
-
         adminApi.changeRole(userCreator.create(
                 UserChangeDto(
                         "user",
@@ -46,71 +44,178 @@ internal class AirplaneCreatorTest @Autowired constructor(
                 )), "AIRLINE_OWNER")
     }
 
+    @AfterEach
+    internal fun tearDown() {
+        airplaneRepository.deleteAll()
+        userDestructor.deleteAllUser()
+    }
+
     @Test
-    fun createAirplaneIsAirlineOwner() {
+    fun shouldBeOk() {
         val apCorrect = AirplaneNewDto(
                 "nowy",
                 50,
                 50.50,
                 "airlineOwner")
-        Assert.assertTrue(airplaneCreator.create(apCorrect, userApi))
+        Assert.assertTrue(
+                "should be ok",
+                airplaneCreator.create(apCorrect))
+        Assert.assertEquals(
+                "Should be 1 airplanes in database",
+                1,
+
+                airplaneRepository.findAll().size)
     }
 
     @Test
-    fun createAirplaneIsNotAirlineOwner() {
+    fun shouldBeFalseBecauseUserHasWrongRole() {
         val apWrongRole = AirplaneNewDto(
                 "nowy",
                 50,
                 50.50,
                 "user")
-        Assert.assertFalse(airplaneCreator.create(apWrongRole, userApi))
+        Assert.assertFalse(
+                "should be false / wrong role",
+                airplaneCreator.create(apWrongRole))
+        Assert.assertEquals(
+                "should be 0 airplanes in database",
+                0,
+                airplaneRepository.findAll().size
+        )
     }
 
     @Test
-    fun createAirplaneEmptyUser() {
+    fun shouldBeFalseBecauseUserIsEmpty() {
         val apEmptyUser = AirplaneNewDto(
                 "nowy",
                 50,
                 50.50,
                 "")
-        Assert.assertFalse(airplaneCreator.create(apEmptyUser, userApi))
+        Assert.assertFalse(
+                "should be false / user is empty",
+                airplaneCreator.create(apEmptyUser))
+        Assert.assertEquals(
+                "should be 0 airplanes in database",
+                0,
+                airplaneRepository.findAll().size
+        )
     }
 
     @Test
-    fun createAirplaneThereIsNoThatUser() {
+    fun shouldBeFalseBecauseUserIsNull() {
+        val apEmptyUser = AirplaneNewDto(
+                "nowy",
+                50,
+                50.50,
+                null)
+        Assert.assertFalse(
+                "should be false / user is empty",
+                airplaneCreator.create(apEmptyUser))
+        Assert.assertEquals(
+                "should be 0 airplanes in database",
+                0,
+                airplaneRepository.findAll().size
+        )
+    }
+
+    @Test
+    fun shouldBeFalseBecauseUserDoesntExists() {
         val apWrongUser = AirplaneNewDto(
                 "nowy",
                 50,
                 50.50,
                 "uzytkownikKtoregoNieMa")
-        Assert.assertFalse(airplaneCreator.create(apWrongUser, userApi))
+        Assert.assertFalse(
+                "should be false, user doesnt exists",
+                airplaneCreator.create(apWrongUser))
+        Assert.assertEquals(
+                "should be 0 airplanes in database",
+                0,
+                airplaneRepository.findAll().size
+        )
     }
 
+    @Test
+    fun shouldBeFalseBecauseAirplaneNameIsNull() {
+        Assert.assertFalse("should be false / name is null",
+                airplaneCreator.create(AirplaneNewDto(
+                        null,
+                        50,
+                        50.50,
+                        "airlineOwner")))
+        Assert.assertEquals(
+                "should be 0 airplanes in database",
+                0,
+                airplaneRepository.findAll().size)
+    }
 
     @Test
-    fun creatAirplaneWithWrongParameters() {
-        val apEmptyName = AirplaneNewDto(
-                "",
-                50,
-                50.50,
-                "airlineOwner")
-        Assert.assertFalse("Zła nazwa",
-                airplaneCreator.create(apEmptyName, userApi))
-        val apWrongCapacity = AirplaneNewDto(
-                "nowy",
-                -50,
-                50.50,
-                "airlineOwner")
-        Assert.assertFalse(
-                "Złe capacity",
-                airplaneCreator.create(apWrongCapacity, userApi))
-        val apWrongMaxDistance = AirplaneNewDto(
-                "nowy",
-                50,
-                0.0,
-                "airlineOwner")
-        Assert.assertFalse(
-                "Zły max distance",
-                airplaneCreator.create(apWrongMaxDistance, userApi))
+    fun shouldBeFalseBecauseAirplaneNameIsEmpty(){
+        Assert.assertFalse("should be false / name is empty",
+                airplaneCreator.create(AirplaneNewDto(
+                        "",
+                        50,
+                        50.50,
+                        "airlineOwner")))
+        Assert.assertEquals(
+                "should be 0 airplanes in database",
+                0,
+                airplaneRepository.findAll().size)
+    }
+
+    @Test
+    fun shouldBeFalseBecauseCapacityIsLessThanZero(){
+        Assert.assertFalse("should be false / capacity less than 0",
+                airplaneCreator.create(AirplaneNewDto(
+                        "nowy",
+                        -50,
+                        50.50,
+                        "airlineOwner")))
+        Assert.assertEquals(
+                "should be 0 airplanes in database",
+                0,
+                airplaneRepository.findAll().size)
+    }
+
+    @Test
+    fun shouldBeFalseBecauseCapacityIsZero(){
+        Assert.assertFalse("should be false / capacity is 0",
+                airplaneCreator.create(AirplaneNewDto(
+                        "nowy",
+                        0,
+                        50.50,
+                        "airlineOwner")))
+        Assert.assertEquals(
+                "should be 0 airplanes in database",
+                0,
+                airplaneRepository.findAll().size)
+    }
+
+    @Test
+    fun shouldBeFalseBecauseMaxDistanceIsZero(){
+        Assert.assertFalse("should be false / max distance is 0",
+                airplaneCreator.create(AirplaneNewDto(
+                        "nowy",
+                        0,
+                        0.0,
+                        "airlineOwner")))
+        Assert.assertEquals(
+                "should be 0 airplanes in database",
+                0,
+                airplaneRepository.findAll().size)
+    }
+
+    @Test
+    fun shouldBeFalseBecauseMaxDistanceIsLessThanZero(){
+        Assert.assertFalse("should be false / max distance less than 0",
+                airplaneCreator.create(AirplaneNewDto(
+                        "nowy",
+                        0,
+                        -50.0,
+                        "airlineOwner")))
+        Assert.assertEquals(
+                "should be 0 airplanes in database",
+                0,
+                airplaneRepository.findAll().size)
     }
 }

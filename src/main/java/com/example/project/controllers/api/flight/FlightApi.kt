@@ -1,30 +1,28 @@
-package com.example.project.controllers.api.airline
+package com.example.project.controllers.api.flight
 
-import com.example.project.controllers.api.airplane.AirplaneApi
-import com.example.project.controllers.api.airport.AirportApi
+import com.example.project.controllers.api.flight.service.FlightCreator
+import com.example.project.controllers.api.flight.service.FlightDestructor
 import com.example.project.dto.FlightBasicDto
 import com.example.project.dto.FlightNewDto
 import com.example.project.entity.Flight
 import com.example.project.repository.FlightRepository
 import org.springframework.web.bind.annotation.*
-import java.time.Instant
 
 @RestController
 @CrossOrigin
 @RequestMapping("/api/flights")
 class FlightApi(
         private val flightRepository: FlightRepository,
-        private val airportApi: AirportApi,
-        private val airplaneApi: AirplaneApi
+        private val flightCreator: FlightCreator,
+        private val flightDestructor: FlightDestructor
 ) {
 
     @GetMapping
-    fun getAllFlights() = flightRepository
-            .findAll()
+    fun getAllFlights() = flightRepository.findAll()
             .map { t -> FlightBasicDto(t) }
 
     @GetMapping("/{id}")
-    fun getFlightByIdDto(id: Long) = FlightBasicDto(getFlightById(id) as Flight)
+    fun getFlightByIdDto(@PathVariable(name = "id") id: Long) = FlightBasicDto(getFlightById(id)!!)
 
     fun getFlightById(id: Long): Flight? = flightRepository.findFlightsById(id)
 
@@ -50,19 +48,11 @@ class FlightApi(
                     .filter { it.endAirport.name == name }
                     .map { t -> FlightBasicDto(t) }
 
-    //TODO nie można dodać lotu, jeżeli w podanym czasie dany samolot już posiada lot
-    // oraz jeżeli lotniska będą zajęte
     @PostMapping
-    fun newFlight(@RequestBody newFlight: FlightNewDto) {
-        val flight = Flight(
-                newFlight.cost,
-                // yyyy-mm-ddThh:mm:ss.00Z  -  T i Z musi być, inaczej się nie sparsuje
-                Instant.parse(newFlight.startDate),
-                Instant.parse(newFlight.endDate),
-                airportApi.getAirportByName(newFlight.startAirport),
-                airportApi.getAirportByName(newFlight.endAirport),
-                airplaneApi.getAirplaneById(newFlight.airplane)
-        )
-        flightRepository.save(flight)
-    }
+    fun newFlight(@RequestBody newFlight: FlightNewDto): Boolean =
+            flightCreator.create(newFlight)
+
+    @DeleteMapping("/{id}")
+    fun deleteFlight(@PathVariable("id") id: Long) =
+            flightDestructor.delete(id)
 }

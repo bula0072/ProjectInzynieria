@@ -1,0 +1,26 @@
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Start</th>
+      <th scope="col"></th>
+      <th scope="col">Koniec</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let t of flights | async; index as i">
+      <th scope="row">{{i+1}}</th>
+      <td>{{t.startAirport.name}}</td>
+      <td>{{t.startDate | date: 'd/M/yy, HH:mm'}}</td>
+      <td>{{t.endAirport.name}}</td>
+      <td>{{t.endDate | date: 'd/M/yy, HH:mm'}}</td>
+      <td>
+        <a class="btn btn-primary" style="text-decoration: none; color: white" *ngIf="user && user.roles.toString() === '[ROLE_USER]'">
+          Zapisz się!
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>

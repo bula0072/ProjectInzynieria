@@ -1,0 +1,13 @@
+<app-normal-user *ngIf="loggedIn.roles.toString() === '[ROLE_USER]'" [loggedIn]="loggedIn">
+</app-normal-user>
+
+<app-admin *ngIf="loggedIn.roles.toString() === '[ROLE_ADMIN]'" [loggedIn]="loggedIn">
+</app-admin>
+
+<app-airline-owner *ngIf="loggedIn.roles.toString() === '[ROLE_AIRLINE_OWNER]'" [loggedIn]="loggedIn">
+</app-airline-owner>
+
+<app-airport-owner *ngIf="loggedIn.roles.toString() === '[ROLE_AIRPORT_OWNER]'" [loggedIn]="loggedIn">
+</app-airport-owner>
+
+

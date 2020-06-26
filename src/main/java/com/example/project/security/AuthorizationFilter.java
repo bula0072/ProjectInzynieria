@@ -30,13 +30,13 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
                                     HttpServletResponse response,
                                     FilterChain chain)
             throws IOException, ServletException {
+
         String header = request.getHeader(SecProperties.HEADER);
 
         if (header == null || !header.startsWith(SecProperties.PREFIX)) {
             chain.doFilter(request, response);
             return;
         }
-
         Authentication authentication = getUsernamePasswordAuthentication(request);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(request, response);

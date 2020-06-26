@@ -8,9 +8,8 @@ import com.example.project.dto.UserChangeDto
 import com.example.project.repository.AirplaneRepository
 import com.example.project.repository.UserRepository
 import org.junit.Assert
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
@@ -26,13 +25,11 @@ internal class AirplaneDestructorTest @Autowired constructor(
         private val adminApi: AdminApi,
         private val airplaneCreator: AirplaneCreator,
         private val userCreator: UserCreator
-){
+) {
+    var airplaneId: Long = 0
 
     @BeforeEach
     fun setUp() {
-        airplaneRepository.deleteAll()
-        userRepository.deleteAll()
-
         adminApi.changeRole(userCreator.create(
                 UserChangeDto(
                         "user",
@@ -46,28 +43,64 @@ internal class AirplaneDestructorTest @Autowired constructor(
                         "password",
                         "email@tojest.email"
                 )), "AIRLINE_OWNER")
+
+        airplaneId = airplaneCreator.creator(AirplaneNewDto("nowy", 50, 50.50, "airlineOwner")).id
+    }
+
+    @AfterEach
+    internal fun tearDown() {
+        airplaneRepository.deleteAll()
+        userRepository.deleteAll()
     }
 
     @Test
-    fun deleteAirplaneShouldBeCorrect() {
-        val apCorrect = AirplaneNewDto("nowy", 50, 50.50, "airlineOwner")
-        airplaneCreator.create(apCorrect, userApi)
-        val apToRemove = airplaneRepository.findAll().last()
-        Assert.assertTrue(airplaneDestructor.delete(apToRemove.id))
+    fun shouldBeOk() {
+        Assert.assertEquals(
+                "should be 1 airplanes in database",
+                1,
+                airplaneRepository.count()
+        )
+        Assert.assertTrue(
+                "should be true",
+                airplaneDestructor.delete(airplaneId))
+        Assert.assertEquals(
+                "Should be 0 airplanes in database",
+                0,
+                airplaneRepository.count()
+        )
     }
 
     @Test
-    fun deleteAirplaneButDoesntExist() {
-        val apCorrect = AirplaneNewDto("nowy", 50, 50.50, "airlineOwner")
-        airplaneCreator.create(apCorrect, userApi)
-        val apLast = airplaneRepository.findAll().last()
-        Assert.assertFalse(airplaneDestructor.delete(apLast.id + 1))
+    fun shouldBeFalseBecauseAirplaneWithThatIdDoesntExists() {
+        Assert.assertFalse(
+                "should be false / id doesnt exists",
+                airplaneDestructor.delete(airplaneId + 1)
+        )
+        Assert.assertEquals(
+                "Should be still 1 airplanes in database",
+                1,
+                airplaneRepository.count())
     }
 
     @Test
-    fun deleteAirplaneButMinusIndex() {
-        val apCorrect = AirplaneNewDto("nowy", 50, 50.50, "airlineOwner")
-        airplaneCreator.create(apCorrect, userApi)
-        Assert.assertFalse(airplaneDestructor.delete(-1))
+    fun shouldBeFalseBecauseAirplaneIdIsLessThanZero() {
+        Assert.assertFalse(
+                "should be false / id is less than 0",
+                airplaneDestructor.delete(-1))
+        Assert.assertEquals(
+                "Should be still 1 airplanes in database",
+                1,
+                airplaneRepository.count())
+    }
+
+    @Test
+    fun shouldBeFalseBecauseAirplaneIdIsNull() {
+        Assert.assertFalse(
+                "should be false / id is less than 0",
+                airplaneDestructor.delete(null))
+        Assert.assertEquals(
+                "Should be still 1 airplanes in database",
+                1,
+                airplaneRepository.count())
     }
 }

@@ -16,4 +16,13 @@ class AirlineDestructor(
         }
         return true
     }
+
+    fun deleteAll(): Boolean {
+        try {
+            airlineRepository.deleteAll()
+        } catch (e: Exception) {
+            return false
+        }
+        return true
+    }
 }

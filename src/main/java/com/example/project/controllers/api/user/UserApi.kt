@@ -31,7 +31,7 @@ class UserApi(
     fun deleteUser(@PathVariable(name = "username") username: String) =
             userDestructor.deleteUserByUsername(username)
 
-    @PatchMapping("{username}")
+    @PatchMapping("/{username}")
     fun patchUser(@PathVariable(name = "username") username: String,
                   @RequestBody userChange: UserChangeDto) =
             userEditor.editUser(username, userChange)

@@ -16,11 +16,11 @@ class FlightBasicDto(
 }
 
 class FlightNewDto(
-        val cost: Double,
-        // yyyy-mm-dd hh:mm:ss[.fffffffff]
-        val startDate: String,
-        val endDate: String,
-        val startAirport: String,
-        val endAirport: String,
+        val cost: Double?,
+        // yyyy-mm-ddThh:mm:ss.00Z
+        val startDate: String?,
+        val endDate: String?,
+        val startAirport: String?,
+        val endAirport: String?,
         val airplane: Long
 )

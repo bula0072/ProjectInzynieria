@@ -7,6 +7,7 @@ import com.example.project.dto.AirlineNewDto
 import com.example.project.dto.UserChangeDto
 import com.example.project.repository.AirlineRepository
 import org.junit.Assert
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,9 +26,6 @@ internal class AirlineCreatorTest @Autowired constructor(
 
     @BeforeEach
     fun setUp() {
-        airlineRepository.deleteAll()
-        userDestructor.deleteAllUser()
-
         userCreator.createUser(UserChangeDto("user",
                 "password",
                 "user@email.com"))
@@ -41,15 +39,30 @@ internal class AirlineCreatorTest @Autowired constructor(
                 "AIRLINE_OWNER")
     }
 
+    @AfterEach
+    internal fun tearDown() {
+        airlineRepository.deleteAll()
+        userDestructor.deleteAllUser()
+    }
+
     @Test
-    fun createAirlineShouldBeOk() {
+    fun shouldCreateAirline(){
         Assert.assertTrue(
-                "airline 1 should be ok",
+                "airline1 should be ok",
+                airlineCreator.create(AirlineNewDto(
+                        "airline 1",
+                        "airlineOwner1")))
+    }
+
+    @Test
+    fun afterTransactionShouldBeTwoAirlinesInDatabase() {
+        Assert.assertTrue(
+                "airline1 should be ok",
                 airlineCreator.create(AirlineNewDto(
                         "airline 1",
                         "airlineOwner1")))
         Assert.assertTrue(
-                "airline 2 should be ok",
+                "airline2 should be ok",
                 airlineCreator.create(AirlineNewDto(
                         "airline 2",
                         "airlineOwner2")))
@@ -61,22 +74,34 @@ internal class AirlineCreatorTest @Autowired constructor(
     }
 
     @Test
-    fun createAirlineButEmptyOrNull() {
+    fun shouldBeFalseBecauseAirlineNameIsNull(){
         Assert.assertFalse(
                 "airline should be false / null name",
                 airlineCreator.create(AirlineNewDto(
                         null,
                         "airlineOwner1")))
+    }
+
+    @Test
+    fun shouldBeFalseBecauseAirlineNameIsEmpty(){
         Assert.assertFalse(
                 "airline should be false / empty name",
                 airlineCreator.create(AirlineNewDto(
                         "",
                         "airlineOwner1")))
+    }
+
+    @Test
+    fun shouldBeFalseBecauseUsernameIsEmpty(){
         Assert.assertFalse(
                 "airline should be false / empty user",
                 airlineCreator.create(AirlineNewDto(
                         "airline",
                         "")))
+    }
+
+    @Test
+    fun souldBeFalseBecauseUserIsNull() {
         Assert.assertFalse(
                 "airline should be false / null user",
                 airlineCreator.create(AirlineNewDto(
@@ -85,12 +110,16 @@ internal class AirlineCreatorTest @Autowired constructor(
     }
 
     @Test
-    fun createAirlineButWrongUSer() {
+    fun shouldBeFalseBecauseUserHasWrongRole(){
         Assert.assertFalse(
                 "should be false / role is USER",
                 airlineCreator.create(AirlineNewDto(
                         "airline",
                         "user")))
+    }
+
+    @Test
+    fun shouldBeFalseBecauseAirlineOwnerShouldHasOnlyOnweAirline() {
         Assert.assertTrue(
                 "should be true",
                 airlineCreator.create(AirlineNewDto(
@@ -104,7 +133,7 @@ internal class AirlineCreatorTest @Autowired constructor(
     }
 
     @Test
-    fun createAirlineButNameExists() {
+    fun shouldBeFalseBecauseAirlineAlreadyExists() {
         Assert.assertTrue(
                 "should be ok",
                 airlineCreator.create(AirlineNewDto(

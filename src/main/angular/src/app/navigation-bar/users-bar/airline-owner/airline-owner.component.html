@@ -1,0 +1,26 @@
+<ul class="navbar-nav mr-auto">
+  <li class="nav-item">
+    <a class="nav-link"
+       [routerLink]="['airlines', loggedIn.sub]">
+      Detale linii lotniczych
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"
+       [routerLink]="['airplanes', loggedIn.sub]">
+      Samoloty
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"
+       [routerLink]="['airlines/flights', loggedIn.sub]">
+      Loty
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"
+       [routerLink]="['airlines/new', loggedIn.sub]">
+      Nowy lot
+    </a>
+  </li>
+</ul>
