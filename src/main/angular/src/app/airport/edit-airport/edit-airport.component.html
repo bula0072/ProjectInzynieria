@@ -1,0 +1,46 @@
+<div class="container" *ngIf="details | async as detail">
+  <div style="width:600px;margin-left: auto;margin-right: auto;margin-top:24px;padding: 24px;">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-user">Detale lotniska</i>
+      </div>
+      <form name="form" [formGroup]="form" (ngSubmit)="saveChanges(detail.user.username, form)">
+        <div class="form-group ml-3 mr-3">
+          <label for="name">
+            Nazwa lotniska
+          </label>
+          <input type="text"
+                 class="form-control" id="name"
+          formControlName="name">
+        </div>
+        <div class="form-group ml-3 mr-3">
+          <label for="capacity">
+            Pojemność lotniska
+          </label>
+          <input type="text" value="{{detail.capacity}}"
+                 class="form-control" id="capacity"
+                 formControlName="capacity">
+        </div>
+        <div class="form-group ml-3 mr-3">
+          <label for="latitude">
+            Szerokość geograficzna
+          </label>
+          <input type="text" value="{{detail.latitude}}"
+                 class="form-control" id="latitude"
+                 formControlName="latitude">
+        </div>
+        <div class="form-group ml-3 mr-3">
+          <label for="longitude">
+            Długość geograficzna
+          </label>
+          <input type="text" value="{{detail.longitude}}"
+                 class="form-control" id="longitude"
+                 formControlName="longitude">
+        </div>
+        <button type="submit" class="btn btn-primary ml-3 mb-3">
+          Zapisz zmiany
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

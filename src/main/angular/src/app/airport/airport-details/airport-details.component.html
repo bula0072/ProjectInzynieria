@@ -1,0 +1,49 @@
+<div class="container" *ngIf="details | async as det else brakLotniska">
+  <div style="width:600px;margin-left: auto;margin-right: auto;margin-top:24px;padding: 24px;">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-user"></i> Detale lotniska
+      </div>
+      <div class="card-block" style="padding: 24px;">
+        <div class="container">
+          <div class="row row-cols-2">
+            <div class="col">Nazwa lotniska</div>
+            <div class="col">{{det.name}}</div>
+            <div class="col">Pojemność lotniska</div>
+            <div class="col">{{det.capacity}}</div>
+            <div class="col">Szerokość geograficzna</div>
+            <div class="col">{{det.latitude}}</div>
+            <div class="col">Długość geograficzna</div>
+            <div class="col">{{det.longitude}}</div>
+            <div class="col">Aktywny</div>
+            <div class="col">{{det.active}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-center">
+        <div class="btn-group btn-group-toggle">
+          <label class="btn btn-secondary style text-decoration-none" *ngIf="!det.active else editDisabled">
+            <a [routerLink]="['/airports/edit', det.name]" style="text-decoration: none; color: white">Edytuj</a>
+          </label>
+          <ng-template #editDisabled>
+            <label class="btn btn-secondary active" #editDisabled>
+              <a>Edytuj</a>
+            </label>
+          </ng-template>
+          <label class="btn btn-secondary">
+            <a [routerLink]="['/airports/delete', det.name]" style="text-decoration: none; color: white">Usuń</a>
+          </label>
+          <label class="btn btn-secondary">
+            <a *ngIf="det.active" (click)="changeActiveStatus(det.name)">Dezaktywuj</a>
+            <a *ngIf="!det.active" (click)="changeActiveStatus(det.name)">Aktywuj</a>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #brakLotniska>
+  <div class="text-center">
+      <a>Brak lotniska</a>
+  </div>
+</ng-template>

@@ -1,0 +1,36 @@
+<div class="container" *ngIf="userDetails | async as det">
+  <div style="width:600px;margin-left: auto;margin-right: auto;margin-top:24px;padding: 24px;">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-user"></i> Detale użytkownika
+      </div>
+      <div class="card-block" style="padding: 24px;">
+        <div class="container">
+          <div class="row row-cols-2">
+            <div class="col">Nazwa użytkownika</div>
+            <div class="col">{{det.username}}</div>
+            <div class="col">Email</div>
+            <div class="col">{{det.email}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-center">
+        <div class="btn-group btn-group-toggle">
+          <label class="btn btn-secondary style text-decoration-none">
+            <a style="text-decoration: none; color: white"
+            [routerLink]="['/main/edit', det.username]">Edytuj</a>
+          </label>
+          <label class="btn btn-secondary">
+            <a style="text-decoration: none; color: white"
+               [routerLink]="['/main/delete', det.username]" >Usuń</a>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #brakLotniska>
+  <div class="text-center">
+    <a>Użytkownika</a>
+  </div>
+</ng-template>
