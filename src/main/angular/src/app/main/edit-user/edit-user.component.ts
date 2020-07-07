@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {UserDTO} from "../../airport/airport-details/airport-details.component";
 import {MainService} from "../services/main.service";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {delay, switchMap} from "rxjs/operators";
+import {switchMap} from "rxjs/operators";
 import {FormControl, FormGroup} from "@angular/forms";
 import {TokenService} from "../../services/token.service";
 
@@ -19,19 +19,20 @@ export class EditUserComponent implements OnInit {
   constructor(private mainService: MainService,
               private tokenService: TokenService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit(): void {
     this.details = this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
-      this.mainService.getUser(params.get('name')))
+        this.mainService.getUser(params.get('name')))
     )
     this.details.subscribe(t =>
-    this.form = new FormGroup({
-      username: new FormControl(t.username),
-      password: new FormControl(''),
-      email: new FormControl(t.email)
-    }))
+      this.form = new FormGroup({
+        username: new FormControl(t.username),
+        password: new FormControl(''),
+        email: new FormControl(t.email)
+      }))
 
 
   }
@@ -47,7 +48,7 @@ export class EditUserComponent implements OnInit {
     userToken.sub = form.getRawValue().username == null ? username : form.getRawValue().username
     this.tokenService.saveUser(userToken)
     const delay = ms => new Promise(res => setTimeout(res, ms));
-    await delay(1000)
+    await delay(100)
     await this.router.navigate(['/main/' + userToken.sub])
   }
 }

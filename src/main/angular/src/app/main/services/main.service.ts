@@ -13,7 +13,7 @@ export class MainService {
   constructor(private http: HttpClient) {
   }
 
-  getUser(name: string): Observable<UserDTO>{
+  getUser(name: string): Observable<UserDTO> {
     return this.http.get<UserDTO>(userApi + name, {responseType: "json"})
   }
 
@@ -23,5 +23,14 @@ export class MainService {
 
   editUser(username: string, user: UserDTO) {
     return this.http.patch(userApi + username, user, {responseType: "text"})
+  }
+
+  getAllUser(): Observable<Array<UserDTO>> {
+    return this.http.get<Array<UserDTO>>(userApi, {responseType: "json"})
+  }
+
+  changeRole(role: string, username: string) {
+    return this.http.post('http://localhost:8080/api/admins/changeRole',
+      {username: username, role: role}, {responseType: "text"})
   }
 }

@@ -20,10 +20,14 @@ export class FlightsComponent implements OnInit {
   ngOnInit(): void {
     try {
       this.user = this.tokenService.getUser()
-    }catch (e) {
+    } catch (e) {
       console.log('brak usera')
     }
     this.flights = this.flightService.getAllFlights()
   }
 
+  isCorrect(user: UserToken, startDate: string) {
+    if (user == null || user.roles.toString() != '[ROLE_USER]') return false
+    return new Date(Date.now()).valueOf() < new Date(startDate).valueOf() - 1800000;
+  }
 }

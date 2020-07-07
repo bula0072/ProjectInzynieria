@@ -7,6 +7,7 @@ import com.example.project.controllers.api.user.UserApi
 import com.example.project.dto.AirlineBasicDto
 import com.example.project.dto.AirlineChangeDto
 import com.example.project.dto.AirlineNewDto
+import com.example.project.dto.AirportBasicDto
 import com.example.project.entity.Airline
 import com.example.project.repository.AirlineRepository
 import org.springframework.web.bind.annotation.*
@@ -16,9 +17,9 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/airlines")
 class AirlineApi(
         private val airlineRepository: AirlineRepository,
-        private val airlineDestructor: AirlineDestructor, // brak konstruktora
-        private val airlineEditor: AirlineEditor, // może powodować problemy / brak konstruktora
-        private val airlineCreator: AirlineCreator // może powodować problemy
+        private val airlineDestructor: AirlineDestructor,
+        private val airlineEditor: AirlineEditor,
+        private val airlineCreator: AirlineCreator
 ) {
 
     //region GetMapping
@@ -26,6 +27,13 @@ class AirlineApi(
     fun getAllAirlinesDto() = airlineRepository
             .findAll()
             .map { t -> AirlineBasicDto(t) }
+
+    @GetMapping("/user/{name}")
+    fun getAirlineByUsernameDto(@PathVariable(name = "name")name: String): AirlineBasicDto? {
+        val airline = airlineRepository.findAll().filter { t -> t.user.login == name }.getOrNull(0)
+        return if(airline == null) null
+        else AirlineBasicDto(airline)
+    }
 
     @GetMapping("/{name}")
     fun getAirlineByNameDto(@PathVariable(name = "name") name: String) =

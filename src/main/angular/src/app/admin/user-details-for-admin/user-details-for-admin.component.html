@@ -1,0 +1,91 @@
+<div class="container" *ngIf="details | async as detail else wait">
+  <div style="width:600px;margin-left: auto;margin-right: auto;margin-top:24px;padding: 24px;">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-user"></i>
+        Detale
+      </div>
+      <div class="card-block" style="padding: 24px;">
+        <div class="container">
+          <div class="row row-cols-2">
+            <div class="col">
+              Username
+            </div>
+            <div class="col">
+              {{detail.username}}
+            </div>
+            <div class="col">
+              Email
+            </div>
+            <div class="col">
+              {{detail.email}}
+            </div>
+            <div class="col">
+              Typ konta
+            </div>
+            <div class="col">
+              {{detail.roles}}
+            </div>
+            <ng-container *ngIf="airport | async as ap">
+              <div class="col">
+                Przynależność
+              </div>
+              <div class="col">
+                {{ap.name}}
+              </div>
+            </ng-container>
+            <ng-container *ngIf="airline | async as al">
+              <div class="col">
+                Przynależność
+              </div>
+              <div class="col">
+                {{al.name}}
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-center">
+        <div class="btn-group btn-group-toggle">
+          <label class="btn btn-secondary style text-decoration-none">
+            <a style="text-decoration: none; color: white" (click)="edit()">
+              Edytuj
+            </a>
+          </label>
+
+          <label class="btn btn-secondary">
+            <a style="text-decoration: none; color: white"
+               [routerLink]="['/main/delete', detail.username]">
+              Usuń
+            </a>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="card" *ngIf="isEditable">
+      <div class="card-header">
+        <form>
+          <div class="form-row">
+            <div class="col">
+              <label class="sr-only" for="inlineFormInput">Nowa rola</label>
+              <input type="text" class="form-control mb-2" id="inlineFormInput" placeholder="ROLA" [(ngModel)]="role" name="role">
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary mb-2" (click)="changeRole(detail.roles)">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+<ng-template #wait>
+  <div class="text-center">
+    <div class="spinner-border text-secondary" role="status">
+      <span class="sr-only">
+        Loading...
+      </span>
+    </div>
+  </div>
+</ng-template>

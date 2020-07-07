@@ -11,12 +11,14 @@ import {switchMap} from "rxjs/operators";
 })
 export class AirplanesListComponent implements OnInit {
   airplanes: Observable<Array<AirplaneDTO>>
+  user: string
 
   constructor(private route: ActivatedRoute,
               private airplaneService: AirplaneService) {
   }
 
   ngOnInit(): void {
+    this.user = this.route.snapshot.paramMap.get('name')
     this.airplanes = this.route.paramMap.pipe(
       switchMap((p: ParamMap) =>
         this.airplaneService.getAirplanes(p.get('name')))

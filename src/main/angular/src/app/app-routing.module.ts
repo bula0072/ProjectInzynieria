@@ -14,6 +14,15 @@ import {AirlineDetailsComponent} from "./airline/airline-details/airline-details
 import {NewFlightComponent} from "./flight/new-flight/new-flight.component";
 import {FlightsComponent} from "./flight/flights/flights.component";
 import {UserDetailsComponent} from "./user/details/user-details.component";
+import {UserListComponent} from "./user/user-list/user-list.component";
+import {DeleteUserByAdminComponent} from "./admin/delete-user-by-admin/delete-user-by-admin.component";
+import {UserDetailsForAdminComponent} from "./admin/user-details-for-admin/user-details-for-admin.component";
+import {AirlineEditComponent} from "./airline/airline-edit/airline-edit.component";
+import {AirlineDeleteComponent} from "./airline/airline-delete/airline-delete.component";
+import {AddAirplaneComponent} from "./airplanes/add-airplane/add-airplane.component";
+import {NewTicketComponent} from "./tickets/new-ticket/new-ticket.component";
+import {USerFlightsComponent} from "./user/user-flights/user-flights.component";
+import {RegisterComponent} from "./public/register/register.component";
 
 
 const routes: Routes = [
@@ -29,8 +38,18 @@ const routes: Routes = [
   {path: 'airlines/:name', component: AirlineDetailsComponent},
   {path: 'airplanes/:name', component: AirplanesListComponent},
   {path: 'airlines/new/:name', component: NewFlightComponent},
-  {path: 'flights', component:FlightsComponent},
-  {path: 'user/:username', component: UserDetailsComponent}
+  {path: 'flights', component: FlightsComponent},
+  {path: 'user/:username', component: UserDetailsComponent},
+  {path: 'users', component: UserListComponent},
+  {path: 'users/delete/:name', component: DeleteUserByAdminComponent},
+  {path: 'users/edit/:name', component: UserDetailsForAdminComponent},
+  {path: 'airline/edit/:name', component: AirlineEditComponent},
+  {path: 'airline/delete/:name', component: AirlineDeleteComponent},
+  {path: 'airplane/add/:name', component: AddAirplaneComponent},
+  {path: 'ticket/add/:name/:flight', component: NewTicketComponent},
+  {path: 'users/flights', component: USerFlightsComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: '', component: MainComponent}
 ];
 
 @NgModule({

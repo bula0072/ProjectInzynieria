@@ -19,6 +19,13 @@ export class AirplaneService {
   removeAirplane(id: number) {
     return this.http.delete(airplaneApi + id, {responseType: "text"})
   }
+
+  addAirplane(airplaneAddDTO: AirplaneAddDTO) {
+    return this.http.post(
+      airplaneApi,
+      airplaneAddDTO,
+      {responseType: "text"})
+  }
 }
 
 export class AirplaneDTO {
@@ -27,4 +34,18 @@ export class AirplaneDTO {
   capacity: number
   maxDistance: number
   user: string
+}
+
+export class AirplaneAddDTO {
+  name: string
+  capacity: number
+  maxDistance: number
+  user: string
+
+  constructor(name: string, capacity: number, maxDistance: number, user: string) {
+    this.name = name;
+    this.capacity = capacity;
+    this.maxDistance = maxDistance;
+    this.user = user;
+  }
 }

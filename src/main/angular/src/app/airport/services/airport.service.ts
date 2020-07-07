@@ -3,7 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {AirportDTO} from "../airport-details/airport-details.component";
 import {Observable} from "rxjs";
 import {AirportChange} from "../edit-airport/edit-airport.component";
-import {take} from "rxjs/operators";
 
 const airportApi = "http://localhost:8080/api/airports/"
 
@@ -15,7 +14,7 @@ export class AirportService {
   constructor(private http: HttpClient) {
   }
 
-  getAllAirports(): Observable<Array<AirportDTO>>{
+  getAllAirports(): Observable<Array<AirportDTO>> {
     return this.http.get<Array<AirportDTO>>(airportApi, {responseType: "json"})
   }
 
@@ -35,7 +34,31 @@ export class AirportService {
     return this.http.patch(airportApi + name, body, {responseType: "text"})
   }
 
-  deleteAirport(name: string){
+  deleteAirport(name: string) {
     return this.http.delete(airportApi + name, {responseType: "text"})
+  }
+
+  newAirport(newAirport: AirportNewDto) {
+    return this.http.post(
+      airportApi,
+      newAirport,
+      {responseType: "text"}
+    )
+  }
+}
+
+export class AirportNewDto {
+  name: string
+  capacity: number
+  latitude: number
+  longitude: number
+  user: string
+
+  constructor(name: string, capacity: number, latitude: number, longitude: number, user: string) {
+    this.name = name;
+    this.capacity = capacity;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.user = user;
   }
 }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AirportService} from "../services/airport.service";
+import {AirportNewDto, AirportService} from "../services/airport.service";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {switchMap} from "rxjs/operators";
 import {Observable} from "rxjs";
@@ -11,12 +11,18 @@ import {Observable} from "rxjs";
 })
 export class AirportDetailsComponent implements OnInit {
   details: Observable<AirportDTO>
+  newName: string;
+  capacity: number;
+  latitude: number;
+  longitude: number;
+  user: string
 
   constructor(private airportService: AirportService,
               private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.user = this.route.snapshot.paramMap.get('name')
     this.details = this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
         this.airportService.getAirportDetails(params.get('name')))
@@ -25,6 +31,16 @@ export class AirportDetailsComponent implements OnInit {
 
   changeActiveStatus(name: string) {
     this.airportService.setActiveStatus(name).subscribe()
+    window.location.reload()
+  }
+
+  saveChanges() {
+    this.airportService.newAirport(new AirportNewDto(
+      this.newName,
+      this.capacity,
+      this.latitude,
+      this.longitude,
+      this.user)).subscribe()
     window.location.reload()
   }
 }

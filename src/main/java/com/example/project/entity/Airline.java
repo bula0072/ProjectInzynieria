@@ -15,7 +15,7 @@ public class Airline {
     @NotBlank
     public String name;
 
-    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToOne
     @JoinColumn(name = "users_id", referencedColumnName = "id")
     public User user;
 

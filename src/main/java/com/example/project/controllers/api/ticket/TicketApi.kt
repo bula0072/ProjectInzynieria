@@ -14,44 +14,42 @@ import org.springframework.web.bind.annotation.*
 @CrossOrigin
 @RequestMapping("/api/tickets")
 class TicketApi(
-        private val ticketRepository: TicketRepository,
-        private val userApi: UserApi,
-        private val flightApi: FlightApi,
-        private val ticketCreator: TicketCreator,
-        private val ticketDestructor: TicketDestructor
+		private val ticketRepository: TicketRepository,
+		private val userApi: UserApi,
+		private val flightApi: FlightApi,
+		private val ticketCreator: TicketCreator,
+		private val ticketDestructor: TicketDestructor
 ) {
 
-    @GetMapping
-    fun getAllTicketDto(): List<TicketBasicDto> = getAllTicket().map { t -> TicketBasicDto(t) }
+	@GetMapping
+	fun getAllTicketDto(): List<TicketBasicDto> = getAllTicket().map { t -> TicketBasicDto(t) }
 
-    private fun getAllTicket(): MutableList<Ticket> = ticketRepository.findAll()
+	private fun getAllTicket(): MutableList<Ticket> = ticketRepository.findAll()
 
-    @GetMapping("/flight/{id}")
-    fun getAllTicketFlightDto(@PathVariable(name = "id") id: Long) = getAllTicketFlight(id).map { t -> TicketBasicDto(t) }
+	@GetMapping("/flight/{id}")
+	fun getAllTicketFlightDto(@PathVariable(name = "id") id: Long) = getAllTicketFlight(id).map { t -> TicketBasicDto(t) }
 
-    @GetMapping("/user/{name}")
-    fun getAllTicketUser(@PathVariable("name") name: String) {
-        ticketRepository.findTicketsByUser_Login(name).map { t -> TicketBasicDto(t) }
-    }
-
-    @GetMapping("/{id}")
-    fun getTicketDto(@PathVariable("id") id: Long) =
-            TicketBasicDto(ticketRepository.findTicketById(id))
+	@GetMapping("/user/{name}")
+	fun getAllTicketUser(@PathVariable("name") name: String) =
+			ticketRepository.findAll().filter { ticket -> ticket.user.login == name }.map { t -> TicketBasicDto(t) }
 
 
-    private fun getAllTicketFlight(id: Long) = ticketRepository
-            .findAll()
-            .filter { it.flight.id == id }
+	@GetMapping("/{id}")
+	fun getTicketDto(@PathVariable("id") id: Long) =
+			TicketBasicDto(ticketRepository.findTicketById(id))
 
-    //TODO nie można, jeżeli nie będzie już miejsca
-    @PostMapping
-    fun newTicket(@RequestBody ticket: TicketNewDto) =
-            ticketCreator.create(ticket)
 
-    //TODO delety max 1h przed wylotem
-    @DeleteMapping("/{id}")
-    fun deleteTicket(@PathVariable(name = "id") id: Long) =
-            ticketDestructor.delete(id)
+	private fun getAllTicketFlight(id: Long) = ticketRepository
+			.findAll()
+			.filter { it.flight.id == id }
+
+	@PostMapping
+	fun newTicket(@RequestBody ticket: TicketNewDto) =
+			ticketCreator.create(ticket)
+
+	@DeleteMapping("/{id}")
+	fun deleteTicket(@PathVariable(name = "id") id: Long) =
+			ticketDestructor.delete(id)
 
 
 }

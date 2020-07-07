@@ -16,7 +16,7 @@
     <td>{{f.startDate | date: 'd/M/yy, HH:mm'}}</td>
     <td [ngStyle]="f.endAirport.user.username == user? {'text-decoration': 'underline'}: {}">{{f.endAirport.name}}</td>
     <td>{{f.endDate | date: 'd/M/yy, HH:mm'}}</td>
-    <td>{{findAirline(f.airplane.user)}}</td>
+    <td *ngIf="airlines |async as airline">{{airlineFinder(airline, f.airplane.user)}}</td>
   </tr>
   </tbody>
 </table>

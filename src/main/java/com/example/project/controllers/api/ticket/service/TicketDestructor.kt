@@ -30,7 +30,7 @@ class TicketDestructor(
 
     private fun destructor(id: Long) {
         val ticket = TicketBasicDto(ticketRepository.findTicketById(id))
-        if (Instant.now().isBefore(ticket.flight.startDate.minusSeconds(1800)))
+        if (Instant.now().isAfter(ticket.flight.startDate.minusSeconds(1800)))
             throw Exception("Too late, you cant delete this thicket")
         ticketRepository.deleteById(id)
     }

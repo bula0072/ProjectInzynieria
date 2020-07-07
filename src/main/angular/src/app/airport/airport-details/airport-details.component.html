@@ -1,4 +1,4 @@
-<div class="container" *ngIf="details | async as det else brakLotniska">
+<div class="container" *ngIf="details | async as det else addNew">
   <div style="width:600px;margin-left: auto;margin-right: auto;margin-top:24px;padding: 24px;">
     <div class="card">
       <div class="card-header">
@@ -26,7 +26,7 @@
             <a [routerLink]="['/airports/edit', det.name]" style="text-decoration: none; color: white">Edytuj</a>
           </label>
           <ng-template #editDisabled>
-            <label class="btn btn-secondary active" #editDisabled>
+            <label class="btn btn-secondary active">
               <a>Edytuj</a>
             </label>
           </ng-template>
@@ -42,8 +42,57 @@
     </div>
   </div>
 </div>
-<ng-template #brakLotniska>
-  <div class="text-center">
-      <a>Brak lotniska</a>
+<ng-template #addNew>
+  <div class="container">
+    <div style="width:600px;margin-left: auto;margin-right: auto;margin-top:24px;padding: 24px;">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-user">Nowy port lotniczy</i>
+        </div>
+        <form>
+          <div class="form-group ml-3 mr-3">
+            <label for="name">
+              Nazwa
+            </label>
+            <input type="text"
+                   class="form-control" id="name"
+                   [(ngModel)]="newName" name="newName" >
+          </div>
+
+          <div class="form-group ml-3 mr-3">
+            <label for="capacity">
+              Ilość samolotów w jednym momencie
+            </label>
+            <input type="text"
+                   class="form-control" id="capacity"
+                   [(ngModel)]="capacity" name="capacity" >
+          </div>
+          <div class="form-group ml-3 mr-3">
+            <label for="latitude">
+              Szerokość geograficzna
+            </label>
+            <input type="text"
+                   class="form-control" id="latitude"
+                   [(ngModel)]="latitude" name="latitude" >
+          </div>
+
+          <div class="form-group ml-3 mr-3">
+            <label for="longitude">
+              Długość geograficzna
+            </label>
+            <input type="text"
+                   class="form-control" id="longitude"
+                   [(ngModel)]="longitude" name="longitude" >
+          </div>
+
+
+          <button type="submit" class="btn btn-primary ml-3 mb-3"
+                  (click)="saveChanges()">
+            Dodaj
+          </button>
+        </form>
+      </div>
+    </div>
   </div>
+
 </ng-template>

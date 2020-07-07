@@ -8,7 +8,9 @@ import {UserToken} from "../../../public/login/login.component";
 })
 export class AirlineOwnerComponent implements OnInit {
   @Input() loggedIn: UserToken
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

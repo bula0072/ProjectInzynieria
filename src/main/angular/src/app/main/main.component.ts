@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, ParamMap} from "@angular/router";
-import {switchMap} from "rxjs/operators";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs";
-import {AirportDTO, UserDTO} from "../airport/airport-details/airport-details.component";
+import {UserDTO} from "../airport/airport-details/airport-details.component";
 import {MainService} from "./services/main.service";
+import {TokenService} from "../services/token.service";
 
 @Component({
   selector: 'app-main',
@@ -12,15 +12,20 @@ import {MainService} from "./services/main.service";
 })
 export class MainComponent implements OnInit {
   details: Observable<UserDTO>;
+
   constructor(
     private mainService: MainService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private tokenService: TokenService,
+    private router: Router
   ) {
   }
 
   ngOnInit(): void {
-    this.details = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.mainService.getUser(params.get('name')))
-    )
+    try {
+      this.details = this.mainService.getUser(this.tokenService.getUser().sub)
+    } catch (e) {
+      this.router.navigate(['/flights'])
+    }
   }
 }

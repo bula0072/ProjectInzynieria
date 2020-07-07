@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*
 class AdminApi(
         private val userApi: UserApi
 ) {
+
     @GetMapping("/test")
     fun test() = "admin stuff"
 

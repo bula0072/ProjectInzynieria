@@ -13,22 +13,22 @@ class AirplaneValidator(
         private val flightRepository: FlightRepository
 ) {
     fun validate(flight: FlightNewDto) =
-            howManyFlightsThisPlaneHaveAtThatMoment(flight) == 0
+            howManyFlightsThisPlaneHasAtThatMoment(flight) == 0
 
-    private fun howManyFlightsThisPlaneHaveAtThatMoment(flight: FlightNewDto): Int {
+    private fun howManyFlightsThisPlaneHasAtThatMoment(flight: FlightNewDto): Int {
         val plane = airplaneApi.getAirplaneByIdDto(flight.airplane)
         if (plane != null) {
             val allFlight = flightRepository.findAll()
                     .map { t -> FlightBasicDto(t) }.filter {
                         (it.airplane.id == plane.id //loty z tym samolotem
-                                && (it.startDate.epochSecond > Instant.parse(flight.startDate).epochSecond - 1800
+                                && ((it.startDate.epochSecond > Instant.parse(flight.startDate).epochSecond - 1800
                                 && it.startDate.epochSecond < Instant.parse(flight.startDate).epochSecond + 1800) //it.startDate był w przedziale flight.startDate +/- 30 minut
                                 || (it.endDate.epochSecond > Instant.parse(flight.startDate).epochSecond - 1800
                                 && it.endDate.epochSecond < Instant.parse(flight.startDate).epochSecond + 1800) //it.endDate był w przedziale flight.startDate +/- 30 minut
                                 || (it.startDate.epochSecond > Instant.parse(flight.endDate).epochSecond - 1800
                                 && it.startDate.epochSecond < Instant.parse(flight.endDate).epochSecond + 1800) //it.startDate był w przedziale flight.endDate +/- 30 minut
                                 || (it.endDate.epochSecond > Instant.parse(flight.endDate).epochSecond - 1800
-                                && it.endDate.epochSecond < Instant.parse(flight.endDate).epochSecond + 1800)) //it.endDate był w przedziale flight.endDate +/- 30 minut
+                                && it.endDate.epochSecond < Instant.parse(flight.endDate).epochSecond + 1800))) //it.endDate był w przedziale flight.endDate +/- 30 minut
                     }
             return allFlight.size
         }

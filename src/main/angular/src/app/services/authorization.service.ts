@@ -14,7 +14,7 @@ export class AuthorizationService {
       .post('http://localhost:8080/login', user, {observe: 'response'})
   }
 
-  regiser(user) {
+  register(user) {
     return this.http.post(
       'http://localhost:8080/api/public/register',
       user,

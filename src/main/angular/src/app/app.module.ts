@@ -28,6 +28,15 @@ import { AirlineDetailsComponent } from './airline/airline-details/airline-detai
 import { NewFlightComponent } from './flight/new-flight/new-flight.component';
 import { FlightsComponent } from './flight/flights/flights.component';
 import { UserDetailsComponent } from './user/details/user-details.component';
+import { UserListComponent } from './user/user-list/user-list.component';
+import { DeleteUserByAdminComponent } from './admin/delete-user-by-admin/delete-user-by-admin.component';
+import { UserDetailsForAdminComponent } from './admin/user-details-for-admin/user-details-for-admin.component';
+import { AirlineEditComponent } from './airline/airline-edit/airline-edit.component';
+import { AirlineDeleteComponent } from './airline/airline-delete/airline-delete.component';
+import { AddAirplaneComponent } from './airplanes/add-airplane/add-airplane.component';
+import { USerFlightsComponent } from './user/user-flights/user-flights.component';
+import { NewTicketComponent } from './tickets/new-ticket/new-ticket.component';
+import { RegisterComponent } from './public/register/register.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +61,17 @@ import { UserDetailsComponent } from './user/details/user-details.component';
     AirlineDetailsComponent,
     NewFlightComponent,
     FlightsComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    UserListComponent,
+    DeleteUserByAdminComponent,
+    UserDetailsForAdminComponent,
+    AirlineEditComponent,
+    AirlineDeleteComponent,
+    AddAirplaneComponent,
+    USerFlightsComponent,
+    NewTicketComponent,
+    RegisterComponent,
+
   ],
   imports: [
     BrowserModule,

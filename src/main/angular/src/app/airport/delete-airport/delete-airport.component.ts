@@ -12,6 +12,7 @@ import {AirportDTO} from "../airport-details/airport-details.component";
 })
 export class DeleteAirportComponent implements OnInit {
   airport: Observable<AirportDTO>;
+  user: string;
 
   constructor(private airportService: AirportService,
               private route: ActivatedRoute,
@@ -19,14 +20,16 @@ export class DeleteAirportComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.user = this.route.snapshot.paramMap.get('name')
     this.airport = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.airportService.getAirport(params.get('name')))
+      switchMap((params: ParamMap) =>
+        this.airportService.getAirport(params.get('name')))
     )
   }
 
   delete(name: string) {
     this.airportService.deleteAirport(name).subscribe()
-    this.router.navigate(['/'])
+    this.router.navigate(['/airportDetails', this.user])
   }
 
 

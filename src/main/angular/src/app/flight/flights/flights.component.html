@@ -17,7 +17,8 @@
       <td>{{t.endAirport.name}}</td>
       <td>{{t.endDate | date: 'd/M/yy, HH:mm'}}</td>
       <td>
-        <a class="btn btn-primary" style="text-decoration: none; color: white" *ngIf="user && user.roles.toString() === '[ROLE_USER]'">
+        <a class="btn btn-primary" style="text-decoration: none; color: white" *ngIf="isCorrect(user, t.startDate)"
+           [routerLink]="['/ticket/add', user.sub, t.id ]">
           Zapisz się!
         </a>
       </td>

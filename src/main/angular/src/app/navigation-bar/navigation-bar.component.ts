@@ -1,19 +1,24 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {TokenService} from "../services/token.service";
 import {UserToken} from "../public/login/login.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navigation-bar',
   templateUrl: './navigation-bar.component.html',
   styleUrls: ['./navigation-bar.component.css']
 })
-export class NavigationBarComponent{
+export class NavigationBarComponent {
   @Input() loggedIn: UserToken
 
-  constructor(private tokenService: TokenService) {}
+  constructor(private tokenService: TokenService,
+              private router: Router) {
+  }
 
-  logout() {
+  async logout() {
     this.tokenService.signOut();
-    window.location.reload();
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+    await delay(100)
+    await this.router.navigate(['/flights'])
   }
 }

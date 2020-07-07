@@ -5,8 +5,7 @@
         Nowy lot
       </div>
       <form
-        name="form"
-        (ngSubmit)="onSubmit()">
+        name="form">
         <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css"/>
         <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form {
           font-family: Arial, Helvetica, sans-serif;
@@ -15,34 +14,28 @@
 
         .bootstrap-iso form button, .bootstrap-iso form button:hover {
           color: white !important;
-        }
-
-        .asteriskField {
-          color: red;
         }</style>
         <div class="bootstrap-iso">
           <div class="container-fluid">
             <div class="row">
               <div class="col">
-                <form method="post">
+                <form>
                   <div class="form-group ">
                     <label class="control-label " for="cost">
                       Koszt lotu
                     </label>
                     <input class="form-control"
                            id="cost"
-                           name="cost"
                            type="text"
-                           [(ngModel)]="form.cost"
-                           #cost="ngModel"/>
+                           [(ngModel)]="cost"
+                           name="cost"/>
                   </div>
                   <div class="form-group ">
                     <label class="control-label " for="startAirport">
                       Lotnisko startowe
                     </label>
                     <select class="select form-control" id="startAirport" name="startAirport"
-                            [(ngModel)]="form.startAirport"
-                            #startAirport="ngModel">
+                            [(ngModel)]="startAirport">
                       <ng-container *ngFor="let h of airports | async">
                         <option value="{{h.name}}">
                           {{h.name}}
@@ -51,24 +44,22 @@
                     </select>
                   </div>
                   <div class="form-group ">
-                    <label class="control-label " for="date">
+                    <label class="control-label " for="startDate">
                       Start
                     </label>
                     <input class="form-control"
-                           id="date"
-                           name="date"
+                           id="startDate"
+                           name="startDate"
                            placeholder="DD/MM/YYYY-HH:MM"
                            type="text"
-                           [(ngModel)]="form.startDate"
-                           #startDate="ngModel"/>
+                           [(ngModel)]="startDate"/>
                   </div>
                   <div class="form-group ">
                     <label class="control-label " for="endAirport">
                       Lotnisko końcowe
                     </label>
                     <select class="select form-control" id="endAirport" name="endAirport"
-                            [(ngModel)]="form.endAirport"
-                            #endAirport="ngModel">
+                            [(ngModel)]="endAirport">
                       <ng-container *ngFor="let h of airports | async">
                         <option value="{{h.name}}">
                           {{h.name}}
@@ -85,16 +76,14 @@
                            name="endDate"
                            placeholder="DD/MM/YYYY-HH:MM"
                            type="text"
-                           [(ngModel)]="form.endDate"
-                           #endDate="ngModel"/>
+                           [(ngModel)]="endDate"/>
                   </div>
                   <div class="form-group ">
                     <label class="control-label " for="airplane">
                       Samolot
                     </label>
                     <select class="select form-control" id="airplane" name="airplane"
-                            [(ngModel)]="form.airplane"
-                            #airplane="ngModel">
+                            [(ngModel)]="airplane">
                       <ng-container *ngFor="let h of planes | async">
                         <option value="{{h.id}}">
                           {{h.id}} | {{h.name}}
@@ -104,7 +93,8 @@
                   </div>
                   <div class="form-group">
                     <div>
-                      <button class="btn btn-primary " name="submit" type="submit">
+                      <button class="btn btn-primary " type="submit"
+                              (click)="addFlight()">
                         Dodaj
                       </button>
                     </div>

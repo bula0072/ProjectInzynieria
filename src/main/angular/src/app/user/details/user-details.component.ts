@@ -14,10 +14,9 @@ export class UserDetailsComponent implements OnInit {
   userDetails: Observable<UserDTO>
 
   constructor(private mainService: MainService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    console.log('tutaj jestem')
     this.userDetails = this.route.paramMap.pipe(
       switchMap((p: ParamMap) =>
       this.mainService.getUser(p.get('username')))

@@ -1,0 +1,41 @@
+<div class="container">
+    <div style="width:600px;margin-left: auto;margin-right: auto;margin-top:24px;padding: 24px;">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-user">Rejestracja</i>
+        </div>
+        <form>
+          <div class="form-group ml-3 mr-3">
+            <label for="username">
+              Nazwa użytkownika
+            </label>
+            <input type="text"
+                   class="form-control" id="username"
+                   [(ngModel)]="username" name="username" >
+          </div>
+
+          <div class="form-group ml-3 mr-3">
+            <label for="password">
+              Hasło
+            </label>
+            <input type="password"
+                   class="form-control" id="password"
+                   [(ngModel)]="password" name="password" >
+          </div>
+
+          <div class="form-group ml-3 mr-3">
+            <label for="email">
+              Email
+            </label>
+            <input type="email"
+                   class="form-control" id="email"
+                   [(ngModel)]="email" name="email" >
+          </div>
+          <button type="button" class="btn btn-primary ml-3 mb-3"
+                  (click)="saveChanges()">
+            Dodaj
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>

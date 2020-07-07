@@ -7,7 +7,8 @@
     <th scope="col">Maksymalny dystans</th>
     <th scope="col">Maksymalna ilość osób</th>
     <th scope="col">
-      <a class="btn btn-primary col-5" style="text-decoration: none; color: white">
+      <a class="btn btn-primary col-5" style="text-decoration: none; color: white"
+         [routerLink]="['/airplane/add', user]">
         Dodaj
       </a>
     </th>
@@ -23,7 +24,7 @@
       <td>{{t.capacity}}</td>
       <td>
         <a class="btn btn-danger col-5" style="color: white; text-decoration: none"
-        (click)="removePlane(t.id)">
+           (click)="removePlane(t.id)">
           Usuń
         </a>
       </td>

@@ -4,40 +4,42 @@
       <div class="card-header">
         <i class="fa fa-user">Detale lotniska</i>
       </div>
-      <form name="form" [formGroup]="form" (ngSubmit)="saveChanges(detail.user.username, form)">
+      <form>
         <div class="form-group ml-3 mr-3">
-          <label for="name">
+          <label for="airlineName">
             Nazwa lotniska
           </label>
-          <input type="text"
-                 class="form-control" id="name"
-          formControlName="name">
+        <input type="text"
+               class="form-control" id="airlineName"
+               [(ngModel)]="airlineName" name="airlineName">
         </div>
+
         <div class="form-group ml-3 mr-3">
           <label for="capacity">
             Pojemność lotniska
           </label>
-          <input type="text" value="{{detail.capacity}}"
+          <input type="text"
                  class="form-control" id="capacity"
-                 formControlName="capacity">
+                 [(ngModel)]="capacity" name="capacity">
         </div>
+
         <div class="form-group ml-3 mr-3">
           <label for="latitude">
             Szerokość geograficzna
           </label>
-          <input type="text" value="{{detail.latitude}}"
+          <input type="text"
                  class="form-control" id="latitude"
-                 formControlName="latitude">
+                 [(ngModel)]="latitude" name="latitude">
         </div>
         <div class="form-group ml-3 mr-3">
           <label for="longitude">
             Długość geograficzna
           </label>
-          <input type="text" value="{{detail.longitude}}"
+          <input type="text"
                  class="form-control" id="longitude"
-                 formControlName="longitude">
+                 [(ngModel)]="longitude" name="longitude">
         </div>
-        <button type="submit" class="btn btn-primary ml-3 mb-3">
+        <button type="button" class="btn btn-primary ml-3 mb-3" (click)="save(detail)">
           Zapisz zmiany
         </button>
       </form>

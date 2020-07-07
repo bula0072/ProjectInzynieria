@@ -10,8 +10,8 @@
           (ngSubmit)="onSubmit()">
           <fieldset>
             <div class="form-group">
-              <label>Username</label>
-              <label>
+              <label class="col-6">Nazwa użytkownika</label>
+              <label class="col-6">
                 <input
                   type="text"
                   class="form-control"
@@ -21,8 +21,8 @@
               </label>
             </div>
             <div class="form-group">
-              <label>Password</label>
-              <label>
+              <label class="col-6">Hasło</label>
+              <label class="col-6">
                 <input
                   type="password"
                   class="form-control"
@@ -31,8 +31,13 @@
                   #password="ngModel">
               </label>
             </div>
-            <div class="form-actions" style="margin-top: 12px;">
-              <button class="btn btn-success">Log in</button>
+            <div class="form-actions text-center" style="margin-top: 12px;">
+              <button class="btn btn-success mr-1" type="submit">Zaloguj</button>
+              <a class="btn btn-primary"
+                 style="text-decoration: none; color: white"
+                 [routerLink]="['/register']">
+                Zarejestruj
+              </a>
             </div>
           </fieldset>
         </form>
