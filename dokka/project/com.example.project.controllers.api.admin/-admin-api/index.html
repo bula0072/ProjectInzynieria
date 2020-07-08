@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AdminApi - project</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">project</a>&nbsp;/&nbsp;<a href="../index.html">com.example.project.controllers.api.admin</a>&nbsp;/&nbsp;<a href="./index.html">AdminApi</a><br/>
+<br/>
+<h1>AdminApi</h1>
+<code><span class="identifier">@RestController</span> <span class="identifier">@CrossOrigin</span> <span class="identifier">@RequestMapping</span><span class="symbol">(</span>["/api/admins"]<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">AdminApi</span></code>
+<p>Rest Controller obsługujący zapytania pod adres /api/admins</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Rest Controller obsługujący zapytania pod adres /api/admins</p>
+<code><span class="identifier">AdminApi</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.admin.AdminApi$<init>(com.example.project.controllers.api.user.UserApi)/userApi">userApi</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.controllers.api.user/-user-api/index.html"><span class="identifier">UserApi</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="change-add.html">changeAdd</a></h4>
+</td>
+<td>
+<p>Dodaje role do listy ról</p>
+<code><span class="keyword">fun </span><span class="identifier">changeAdd</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.admin.AdminApi$changeAdd(com.example.project.dto.UserRoleDto)/userRole">userRole</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.dto/-user-role-dto/index.html"><span class="identifier">UserRoleDto</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="change-remove.html">changeRemove</a></h4>
+</td>
+<td>
+<p>Usuwa rolę z listy ról</p>
+<code><span class="keyword">fun </span><span class="identifier">changeRemove</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.admin.AdminApi$changeRemove(com.example.project.dto.UserRoleDto)/userRole">userRole</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.dto/-user-role-dto/index.html"><span class="identifier">UserRoleDto</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="change-role.html">changeRole</a></h4>
+</td>
+<td>
+<p>Zamienia obecne role użytkownika na podaną</p>
+<code><span class="keyword">fun </span><span class="identifier">changeRole</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.admin.AdminApi$changeRole(com.example.project.dto.UserRoleDto)/userRole">userRole</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.dto/-user-role-dto/index.html"><span class="identifier">UserRoleDto</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Wykorzystywana przez changeRole()</p>
+<code><span class="keyword">fun </span><span class="identifier">changeRole</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.admin.AdminApi$changeRole(com.example.project.entity.User, kotlin.String)/user">user</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.entity/-user/index.html"><span class="identifier">User</span></a><span class="symbol">, </span><span class="identifier" id="com.example.project.controllers.api.admin.AdminApi$changeRole(com.example.project.entity.User, kotlin.String)/role">role</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

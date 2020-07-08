@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>UserCreator - project</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">project</a>&nbsp;/&nbsp;<a href="../index.html">com.example.project.controllers.api.user.service</a>&nbsp;/&nbsp;<a href="./index.html">UserCreator</a><br/>
+<br/>
+<h1>UserCreator</h1>
+<code><span class="identifier">@Service</span> <span class="keyword">class </span><span class="identifier">UserCreator</span></code>
+<p>Dodawanie użytkownika do bazy danych</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Dodawanie użytkownika do bazy danych</p>
+<code><span class="identifier">UserCreator</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.user.service.UserCreator$<init>(com.example.project.repository.UserRepository, org.springframework.security.crypto.password.PasswordEncoder)/userRepository">userRepository</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.repository/-user-repository/index.html"><span class="identifier">UserRepository</span></a><span class="symbol">, </span><span class="identifier" id="com.example.project.controllers.api.user.service.UserCreator$<init>(com.example.project.repository.UserRepository, org.springframework.security.crypto.password.PasswordEncoder)/passwordEncoder">passwordEncoder</span><span class="symbol">:</span>&nbsp;<span class="identifier">PasswordEncoder</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="create.html">create</a></h4>
+</td>
+<td>
+<p>Sprawdza poprawność danych wysłanych przez formularz rejstracyjny.
+Jeżeli dane będą poprawne, zostanie dodany nowy użytkownik do bazy danych.
+Jeżeli dane są niepoprawne, wyrzucany jest odpowiedni błąd</p>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.user.service.UserCreator$create(com.example.project.dto.UserChangeDto)/newUser">newUser</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.dto/-user-change-dto/index.html"><span class="identifier">UserChangeDto</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.example.project.entity/-user/index.html"><span class="identifier">User</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="create-user.html">createUser</a></h4>
+</td>
+<td>
+<p>Dodanie nowego użytkownika do bazy danych</p>
+<code><span class="keyword">fun </span><span class="identifier">createUser</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.user.service.UserCreator$createUser(com.example.project.dto.UserChangeDto)/newUser">newUser</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.dto/-user-change-dto/index.html"><span class="identifier">UserChangeDto</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

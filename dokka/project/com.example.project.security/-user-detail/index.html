@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>UserDetail - project</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">project</a>&nbsp;/&nbsp;<a href="../index.html">com.example.project.security</a>&nbsp;/&nbsp;<a href="./index.html">UserDetail</a><br/>
+<br/>
+<h1>UserDetail</h1>
+<code><span class="identifier">@Service</span> <span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">UserDetail</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">UserDetailsService</span></code>
+<p>Klasa implementuje <code>UserDetailService</code>. Jest wykorzystywana przez DaoAuthenticationProvider do pobierania danych związanych z użytkownikiem</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<code><span class="identifier">UserDetail</span><span class="symbol">(</span><span class="identifier" id="com.example.project.security.UserDetail$<init>(com.example.project.repository.UserRepository)/userRepository">userRepository</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.repository/-user-repository/index.html"><span class="identifier">UserRepository</span></a><span class="symbol">!</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="load-user-by-username.html">loadUserByUsername</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">loadUserByUsername</span><span class="symbol">(</span><span class="identifier" id="com.example.project.security.UserDetail$loadUserByUsername(kotlin.String)/s">s</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">UserDetails</span><span class="symbol">!</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

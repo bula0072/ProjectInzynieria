@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SecConfig - project</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">project</a>&nbsp;/&nbsp;<a href="../index.html">com.example.project.security</a>&nbsp;/&nbsp;<a href="./index.html">SecConfig</a><br/>
+<br/>
+<h1>SecConfig</h1>
+<code><span class="identifier">@Configuration</span> <span class="identifier">@EnableWebSecurity</span> <span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">SecConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">WebSecurityConfigurerAdapter</span></code>
+<p>Edycja WebSecurity</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<code><span class="identifier">SecConfig</span><span class="symbol">(</span><span class="identifier" id="com.example.project.security.SecConfig$<init>(com.example.project.security.UserDetail, com.example.project.repository.UserRepository)/userDetail">userDetail</span><span class="symbol">:</span>&nbsp;<a href="../-user-detail/index.html"><span class="identifier">UserDetail</span></a><span class="symbol">!</span><span class="symbol">, </span><span class="identifier" id="com.example.project.security.SecConfig$<init>(com.example.project.security.UserDetail, com.example.project.repository.UserRepository)/userRepository">userRepository</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.repository/-user-repository/index.html"><span class="identifier">UserRepository</span></a><span class="symbol">!</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="configure.html">configure</a></h4>
+</td>
+<td>
+<p>Konfigurowanie spring security (dodanie authentication provider do authentication managera)</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">configure</span><span class="symbol">(</span><span class="identifier" id="com.example.project.security.SecConfig$configure(org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder)/auth">auth</span><span class="symbol">:</span>&nbsp;<span class="identifier">AuthenticationManagerBuilder</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Konfiguracja dostępu oraz dodanie filtrów sprawdzających poprawność tokena autoryzacyjnego</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">configure</span><span class="symbol">(</span><span class="identifier" id="com.example.project.security.SecConfig$configure(org.springframework.security.config.annotation.web.builders.HttpSecurity)/http">http</span><span class="symbol">:</span>&nbsp;<span class="identifier">HttpSecurity</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="cors-filter.html">corsFilter</a></h4>
+</td>
+<td>
+<p>Konfiguracja polityki CORS</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">corsFilter</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">CorsFilter</span><span class="symbol">!</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

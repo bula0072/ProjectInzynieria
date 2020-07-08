@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.example.project.security - project</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">project</a>&nbsp;/&nbsp;<a href="./index.html">com.example.project.security</a><br/>
+<br/>
+<h2>Package com.example.project.security</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-authentication-filter/index.html">AuthenticationFilter</a></h4>
+</td>
+<td>
+<p>System autentykacji użytkownika</p>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">AuthenticationFilter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">UsernamePasswordAuthenticationFilter</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-authorization-filter/index.html">AuthorizationFilter</a></h4>
+</td>
+<td>
+<p>System autoryzacji użytkownika</p>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">AuthorizationFilter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">BasicAuthenticationFilter</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-sec-config/index.html">SecConfig</a></h4>
+</td>
+<td>
+<p>Edycja WebSecurity</p>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">SecConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">WebSecurityConfigurerAdapter</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-sec-properties/index.html">SecProperties</a></h4>
+</td>
+<td>
+<p>Stałe potrzebne do autoryzacji</p>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">SecProperties</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-user-detail/index.html">UserDetail</a></h4>
+</td>
+<td>
+<p>Klasa implementuje <code>UserDetailService</code>. Jest wykorzystywana przez DaoAuthenticationProvider do pobierania danych związanych z użytkownikiem</p>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">UserDetail</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">UserDetailsService</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-user-principal/index.html">UserPrincipal</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">UserPrincipal</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">UserDetails</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

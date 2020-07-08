@@ -1,0 +1,104 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FlightApi - project</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">project</a>&nbsp;/&nbsp;<a href="../index.html">com.example.project.controllers.api.flight</a>&nbsp;/&nbsp;<a href="./index.html">FlightApi</a><br/>
+<br/>
+<h1>FlightApi</h1>
+<code><span class="identifier">@RestController</span> <span class="identifier">@CrossOrigin</span> <span class="identifier">@RequestMapping</span><span class="symbol">(</span>["/api/flights"]<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">FlightApi</span></code>
+<p>Rest Controller obsługujący zapytania pod adres /api/flights</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Rest Controller obsługujący zapytania pod adres /api/flights</p>
+<code><span class="identifier">FlightApi</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.flight.FlightApi$<init>(com.example.project.repository.FlightRepository, com.example.project.controllers.api.flight.service.FlightCreator, com.example.project.controllers.api.flight.service.FlightDestructor)/flightRepository">flightRepository</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.repository/-flight-repository/index.html"><span class="identifier">FlightRepository</span></a><span class="symbol">, </span><span class="identifier" id="com.example.project.controllers.api.flight.FlightApi$<init>(com.example.project.repository.FlightRepository, com.example.project.controllers.api.flight.service.FlightCreator, com.example.project.controllers.api.flight.service.FlightDestructor)/flightCreator">flightCreator</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.controllers.api.flight.service/-flight-creator/index.html"><span class="identifier">FlightCreator</span></a><span class="symbol">, </span><span class="identifier" id="com.example.project.controllers.api.flight.FlightApi$<init>(com.example.project.repository.FlightRepository, com.example.project.controllers.api.flight.service.FlightCreator, com.example.project.controllers.api.flight.service.FlightDestructor)/flightDestructor">flightDestructor</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.controllers.api.flight.service/-flight-destructor/index.html"><span class="identifier">FlightDestructor</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="delete-flight.html">deleteFlight</a></h4>
+</td>
+<td>
+<p>Usuwa konkretny lot</p>
+<code><span class="keyword">fun </span><span class="identifier">deleteFlight</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.flight.FlightApi$deleteFlight(kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-all-flight-by-airport.html">getAllFlightByAirport</a></h4>
+</td>
+<td>
+<p>Pobiera dane wszystkich lotów, które lądują lub startują w danym porcie lotniczym</p>
+<code><span class="keyword">fun </span><span class="identifier">getAllFlightByAirport</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.flight.FlightApi$getAllFlightByAirport(kotlin.String)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.example.project.dto/-flight-basic-dto/index.html"><span class="identifier">FlightBasicDto</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-all-flights.html">getAllFlights</a></h4>
+</td>
+<td>
+<p>Pobiera dane wszystkich lotów z bazy danych</p>
+<code><span class="keyword">fun </span><span class="identifier">getAllFlights</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.example.project.dto/-flight-basic-dto/index.html"><span class="identifier">FlightBasicDto</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-all-flights-by-airline.html">getAllFlightsByAirline</a></h4>
+</td>
+<td>
+<p>Pobiera dane wszystkich lotów konkretnej linii lotniczej</p>
+<code><span class="keyword">fun </span><span class="identifier">getAllFlightsByAirline</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.flight.FlightApi$getAllFlightsByAirline(kotlin.String)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.example.project.dto/-flight-basic-dto/index.html"><span class="identifier">FlightBasicDto</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-all-flights-by-end-airport.html">getAllFlightsByEndAirport</a></h4>
+</td>
+<td>
+<p>Pobiera dane wszystkich lotów z konkretnym końcowym portem lotniczym</p>
+<code><span class="keyword">fun </span><span class="identifier">getAllFlightsByEndAirport</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.flight.FlightApi$getAllFlightsByEndAirport(kotlin.String)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.example.project.dto/-flight-basic-dto/index.html"><span class="identifier">FlightBasicDto</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-all-flights-by-start-airport.html">getAllFlightsByStartAirport</a></h4>
+</td>
+<td>
+<p>Pobiera dane wszystkich lotów z konkretnym startowym portem lotniczym</p>
+<code><span class="keyword">fun </span><span class="identifier">getAllFlightsByStartAirport</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.flight.FlightApi$getAllFlightsByStartAirport(kotlin.String)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.example.project.dto/-flight-basic-dto/index.html"><span class="identifier">FlightBasicDto</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-flight-by-id.html">getFlightById</a></h4>
+</td>
+<td>
+<p>Pobiera dane konkretnego lotu z bazy</p>
+<code><span class="keyword">fun </span><span class="identifier">getFlightById</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.flight.FlightApi$getFlightById(kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.example.project.entity/-flight/index.html"><span class="identifier">Flight</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-flight-by-id-dto.html">getFlightByIdDto</a></h4>
+</td>
+<td>
+<p>Pobiera dane konkretnego lotu z bazy</p>
+<code><span class="keyword">fun </span><span class="identifier">getFlightByIdDto</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.flight.FlightApi$getFlightByIdDto(kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.example.project.dto/-flight-basic-dto/index.html"><span class="identifier">FlightBasicDto</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="new-flight.html">newFlight</a></h4>
+</td>
+<td>
+<p>Dodaje nowy lot</p>
+<code><span class="keyword">fun </span><span class="identifier">newFlight</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.flight.FlightApi$newFlight(com.example.project.dto.FlightNewDto)/newFlight">newFlight</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.dto/-flight-new-dto/index.html"><span class="identifier">FlightNewDto</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

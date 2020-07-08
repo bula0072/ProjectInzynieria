@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AirlineApi - project</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">project</a>&nbsp;/&nbsp;<a href="../index.html">com.example.project.controllers.api.airline</a>&nbsp;/&nbsp;<a href="./index.html">AirlineApi</a><br/>
+<br/>
+<h1>AirlineApi</h1>
+<code><span class="identifier">@RestController</span> <span class="identifier">@CrossOrigin</span> <span class="identifier">@RequestMapping</span><span class="symbol">(</span>["/api/airlines"]<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">AirlineApi</span></code>
+<p>Rest Controller obsługujący zapytania pod adres /api/airlines</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Rest Controller obsługujący zapytania pod adres /api/airlines</p>
+<code><span class="identifier">AirlineApi</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.airline.AirlineApi$<init>(com.example.project.repository.AirlineRepository, com.example.project.controllers.api.airline.service.AirlineDestructor, com.example.project.controllers.api.airline.service.AirlineEditor, com.example.project.controllers.api.airline.service.AirlineCreator)/airlineRepository">airlineRepository</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.repository/-airline-repository/index.html"><span class="identifier">AirlineRepository</span></a><span class="symbol">, </span><span class="identifier" id="com.example.project.controllers.api.airline.AirlineApi$<init>(com.example.project.repository.AirlineRepository, com.example.project.controllers.api.airline.service.AirlineDestructor, com.example.project.controllers.api.airline.service.AirlineEditor, com.example.project.controllers.api.airline.service.AirlineCreator)/airlineDestructor">airlineDestructor</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.controllers.api.airline.service/-airline-destructor/index.html"><span class="identifier">AirlineDestructor</span></a><span class="symbol">, </span><span class="identifier" id="com.example.project.controllers.api.airline.AirlineApi$<init>(com.example.project.repository.AirlineRepository, com.example.project.controllers.api.airline.service.AirlineDestructor, com.example.project.controllers.api.airline.service.AirlineEditor, com.example.project.controllers.api.airline.service.AirlineCreator)/airlineEditor">airlineEditor</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.controllers.api.airline.service/-airline-editor/index.html"><span class="identifier">AirlineEditor</span></a><span class="symbol">, </span><span class="identifier" id="com.example.project.controllers.api.airline.AirlineApi$<init>(com.example.project.repository.AirlineRepository, com.example.project.controllers.api.airline.service.AirlineDestructor, com.example.project.controllers.api.airline.service.AirlineEditor, com.example.project.controllers.api.airline.service.AirlineCreator)/airlineCreator">airlineCreator</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.controllers.api.airline.service/-airline-creator/index.html"><span class="identifier">AirlineCreator</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="delete-airline.html">deleteAirline</a></h4>
+</td>
+<td>
+<p>Usuwa linię lotniczą o podanej nazwie</p>
+<code><span class="keyword">fun </span><span class="identifier">deleteAirline</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.airline.AirlineApi$deleteAirline(kotlin.String)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-airline-by-name-dto.html">getAirlineByNameDto</a></h4>
+</td>
+<td>
+<p>Pobiera z bazy linię lotniczą o podanej nazwie</p>
+<code><span class="keyword">fun </span><span class="identifier">getAirlineByNameDto</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.airline.AirlineApi$getAirlineByNameDto(kotlin.String)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.example.project.dto/-airline-basic-dto/index.html"><span class="identifier">AirlineBasicDto</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-airline-by-username-dto.html">getAirlineByUsernameDto</a></h4>
+</td>
+<td>
+<p>Pobiera bazy linię lotniczą przypisaną do konkretnego użytkownika</p>
+<code><span class="keyword">fun </span><span class="identifier">getAirlineByUsernameDto</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.airline.AirlineApi$getAirlineByUsernameDto(kotlin.String)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.example.project.dto/-airline-basic-dto/index.html"><span class="identifier">AirlineBasicDto</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-all-airlines-dto.html">getAllAirlinesDto</a></h4>
+</td>
+<td>
+<p>Pobiera z bazy listę wszystkich linii lotniczych</p>
+<code><span class="keyword">fun </span><span class="identifier">getAllAirlinesDto</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.example.project.dto/-airline-basic-dto/index.html"><span class="identifier">AirlineBasicDto</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="patch-airline.html">patchAirline</a></h4>
+</td>
+<td>
+<p>Edytuje dane linii lotniczej</p>
+<code><span class="keyword">fun </span><span class="identifier">patchAirline</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.airline.AirlineApi$patchAirline(kotlin.String, com.example.project.dto.AirlineChangeDto)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.project.controllers.api.airline.AirlineApi$patchAirline(kotlin.String, com.example.project.dto.AirlineChangeDto)/airlineChange">airlineChange</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.dto/-airline-change-dto/index.html"><span class="identifier">AirlineChangeDto</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="post-new-airline.html">postNewAirline</a></h4>
+</td>
+<td>
+<p>Dodaje nową linię lotniczą</p>
+<code><span class="keyword">fun </span><span class="identifier">postNewAirline</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.airline.AirlineApi$postNewAirline(com.example.project.dto.AirlineNewDto)/newAirline">newAirline</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.dto/-airline-new-dto/index.html"><span class="identifier">AirlineNewDto</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

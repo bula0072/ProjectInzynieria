@@ -1,0 +1,88 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AirplaneApi - project</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">project</a>&nbsp;/&nbsp;<a href="../index.html">com.example.project.controllers.api.airplane</a>&nbsp;/&nbsp;<a href="./index.html">AirplaneApi</a><br/>
+<br/>
+<h1>AirplaneApi</h1>
+<code><span class="identifier">@RestController</span> <span class="identifier">@CrossOrigin</span> <span class="identifier">@RequestMapping</span><span class="symbol">(</span>["/api/airplanes"]<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">AirplaneApi</span></code>
+<p>Rest Controller obsługujący zapytania pod adres /api/airplanes</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Rest Controller obsługujący zapytania pod adres /api/airplanes</p>
+<code><span class="identifier">AirplaneApi</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.airplane.AirplaneApi$<init>(com.example.project.repository.AirplaneRepository, com.example.project.controllers.api.airplane.service.AirplaneDestructor, com.example.project.controllers.api.airplane.service.AirplaneCreator)/airplaneRepository">airplaneRepository</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.repository/-airplane-repository/index.html"><span class="identifier">AirplaneRepository</span></a><span class="symbol">, </span><span class="identifier" id="com.example.project.controllers.api.airplane.AirplaneApi$<init>(com.example.project.repository.AirplaneRepository, com.example.project.controllers.api.airplane.service.AirplaneDestructor, com.example.project.controllers.api.airplane.service.AirplaneCreator)/airplaneDestructor">airplaneDestructor</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.controllers.api.airplane.service/-airplane-destructor/index.html"><span class="identifier">AirplaneDestructor</span></a><span class="symbol">, </span><span class="identifier" id="com.example.project.controllers.api.airplane.AirplaneApi$<init>(com.example.project.repository.AirplaneRepository, com.example.project.controllers.api.airplane.service.AirplaneDestructor, com.example.project.controllers.api.airplane.service.AirplaneCreator)/airplaneCreator">airplaneCreator</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.controllers.api.airplane.service/-airplane-creator/index.html"><span class="identifier">AirplaneCreator</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="delete-airplane.html">deleteAirplane</a></h4>
+</td>
+<td>
+<p>Usuwa samolot</p>
+<code><span class="keyword">fun </span><span class="identifier">deleteAirplane</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.airplane.AirplaneApi$deleteAirplane(kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-airplane-by-id.html">getAirplaneById</a></h4>
+</td>
+<td>
+<p>Pobiera samolot o podanym id</p>
+<code><span class="keyword">fun </span><span class="identifier">getAirplaneById</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.airplane.AirplaneApi$getAirplaneById(kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.example.project.entity/-airplane/index.html"><span class="identifier">Airplane</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-airplane-by-id-dto.html">getAirplaneByIdDto</a></h4>
+</td>
+<td>
+<p>Pobiera jeden samolot</p>
+<code><span class="keyword">fun </span><span class="identifier">getAirplaneByIdDto</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.airplane.AirplaneApi$getAirplaneByIdDto(kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.example.project.dto/-airplane-basic-dto/index.html"><span class="identifier">AirplaneBasicDto</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-airplanes-by-username-dto.html">getAirplanesByUsernameDto</a></h4>
+</td>
+<td>
+<p>Pobiera listę wszystkich samolotów należących do konkretnego użytkownika</p>
+<code><span class="keyword">fun </span><span class="identifier">getAirplanesByUsernameDto</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.airplane.AirplaneApi$getAirplanesByUsernameDto(kotlin.String)/username">username</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.example.project.dto/-airplane-basic-dto/index.html"><span class="identifier">AirplaneBasicDto</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-all-airplanes.html">getAllAirplanes</a></h4>
+</td>
+<td>
+<p>Pobiera listę samolotów</p>
+<code><span class="keyword">fun </span><span class="identifier">getAllAirplanes</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><a href="../../com.example.project.entity/-airplane/index.html"><span class="identifier">Airplane</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-all-airplanes-dto.html">getAllAirplanesDto</a></h4>
+</td>
+<td>
+<p>Pobiera listę wszystkich samolotów z bazy danych</p>
+<code><span class="keyword">fun </span><span class="identifier">getAllAirplanesDto</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.example.project.dto/-airplane-basic-dto/index.html"><span class="identifier">AirplaneBasicDto</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="post-new-airplane.html">postNewAirplane</a></h4>
+</td>
+<td>
+<p>Dodaje nowy samolot do bazy danych</p>
+<code><span class="keyword">fun </span><span class="identifier">postNewAirplane</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.airplane.AirplaneApi$postNewAirplane(com.example.project.dto.AirplaneNewDto)/newAirplane">newAirplane</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.dto/-airplane-new-dto/index.html"><span class="identifier">AirplaneNewDto</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

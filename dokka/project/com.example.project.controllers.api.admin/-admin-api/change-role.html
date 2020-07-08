@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AdminApi.changeRole - project</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">project</a>&nbsp;/&nbsp;<a href="../index.html">com.example.project.controllers.api.admin</a>&nbsp;/&nbsp;<a href="index.html">AdminApi</a>&nbsp;/&nbsp;<a href="./change-role.html">changeRole</a><br/>
+<br/>
+<h1>changeRole</h1>
+<a name="com.example.project.controllers.api.admin.AdminApi$changeRole(com.example.project.dto.UserRoleDto)"></a>
+<code><span class="identifier">@PostMapping</span><span class="symbol">(</span>["/changeRole"]<span class="symbol">)</span> <span class="keyword">fun </span><span class="identifier">changeRole</span><span class="symbol">(</span><span class="identifier">@RequestBody</span> <span class="identifier" id="com.example.project.controllers.api.admin.AdminApi$changeRole(com.example.project.dto.UserRoleDto)/userRole">userRole</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.dto/-user-role-dto/index.html"><span class="identifier">UserRoleDto</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Zamienia obecne role użytkownika na podaną</p>
+<h3>Parameters</h3>
+<p><a name="userRole"></a>
+<code>userRole</code> - UserRoleDto z nazwą użytkownika i rolą, jaka ma być ustawiona</p>
+<a name="com.example.project.controllers.api.admin.AdminApi$changeRole(com.example.project.entity.User, kotlin.String)"></a>
+<code><span class="keyword">fun </span><span class="identifier">changeRole</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.admin.AdminApi$changeRole(com.example.project.entity.User, kotlin.String)/user">user</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.entity/-user/index.html"><span class="identifier">User</span></a><span class="symbol">, </span><span class="identifier" id="com.example.project.controllers.api.admin.AdminApi$changeRole(com.example.project.entity.User, kotlin.String)/role">role</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Wykorzystywana przez changeRole()</p>
+<h3>Parameters</h3>
+<p><a name="user"></a>
+<code>user</code> - Użytkownik, którego rola ma być zmieniona</p>
+<p><a name="role"></a>
+<code>role</code> - USER, ADMIN, AIRLINE_OWNER lub AIRPORT_OWNER</p>
+</BODY>
+</HTML>

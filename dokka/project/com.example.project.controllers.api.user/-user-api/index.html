@@ -1,0 +1,88 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>UserApi - project</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">project</a>&nbsp;/&nbsp;<a href="../index.html">com.example.project.controllers.api.user</a>&nbsp;/&nbsp;<a href="./index.html">UserApi</a><br/>
+<br/>
+<h1>UserApi</h1>
+<code><span class="identifier">@RestController</span> <span class="identifier">@CrossOrigin</span> <span class="identifier">@RequestMapping</span><span class="symbol">(</span>["/api/users"]<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">UserApi</span></code>
+<p>Rest Controller obsługujący zapytania pod adres /api/users</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Rest Controller obsługujący zapytania pod adres /api/users</p>
+<code><span class="identifier">UserApi</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.user.UserApi$<init>(com.example.project.repository.UserRepository, com.example.project.controllers.api.user.service.UserCreator, com.example.project.controllers.api.user.service.UserDestructor, com.example.project.controllers.api.user.service.UserEditor)/userRepository">userRepository</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.repository/-user-repository/index.html"><span class="identifier">UserRepository</span></a><span class="symbol">, </span><span class="identifier" id="com.example.project.controllers.api.user.UserApi$<init>(com.example.project.repository.UserRepository, com.example.project.controllers.api.user.service.UserCreator, com.example.project.controllers.api.user.service.UserDestructor, com.example.project.controllers.api.user.service.UserEditor)/userCreator">userCreator</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.controllers.api.user.service/-user-creator/index.html"><span class="identifier">UserCreator</span></a><span class="symbol">, </span><span class="identifier" id="com.example.project.controllers.api.user.UserApi$<init>(com.example.project.repository.UserRepository, com.example.project.controllers.api.user.service.UserCreator, com.example.project.controllers.api.user.service.UserDestructor, com.example.project.controllers.api.user.service.UserEditor)/userDestructor">userDestructor</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.controllers.api.user.service/-user-destructor/index.html"><span class="identifier">UserDestructor</span></a><span class="symbol">, </span><span class="identifier" id="com.example.project.controllers.api.user.UserApi$<init>(com.example.project.repository.UserRepository, com.example.project.controllers.api.user.service.UserCreator, com.example.project.controllers.api.user.service.UserDestructor, com.example.project.controllers.api.user.service.UserEditor)/userEditor">userEditor</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.controllers.api.user.service/-user-editor/index.html"><span class="identifier">UserEditor</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="delete-user.html">deleteUser</a></h4>
+</td>
+<td>
+<p>Usunięcie użytkownika z bazy danych</p>
+<code><span class="keyword">fun </span><span class="identifier">deleteUser</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.user.UserApi$deleteUser(kotlin.String)/username">username</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-all-users-dto.html">getAllUsersDto</a></h4>
+</td>
+<td>
+<p>Pobranie listy wszystkich użytkowników</p>
+<code><span class="keyword">fun </span><span class="identifier">getAllUsersDto</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.example.project.dto/-user-basic-dto/index.html"><span class="identifier">UserBasicDto</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-user-by-name.html">getUserByName</a></h4>
+</td>
+<td>
+<p>Pobranie danych użytkownika</p>
+<code><span class="keyword">fun </span><span class="identifier">getUserByName</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.user.UserApi$getUserByName(kotlin.String)/username">username</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.example.project.entity/-user/index.html"><span class="identifier">User</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-user-by-name-dto.html">getUserByNameDto</a></h4>
+</td>
+<td>
+<p>Pobranie danych użytkownika</p>
+<code><span class="keyword">fun </span><span class="identifier">getUserByNameDto</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.user.UserApi$getUserByNameDto(kotlin.String)/username">username</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.example.project.dto/-user-basic-dto/index.html"><span class="identifier">UserBasicDto</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="patch-user.html">patchUser</a></h4>
+</td>
+<td>
+<p>Edycja danych użytkownika</p>
+<code><span class="keyword">fun </span><span class="identifier">patchUser</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.user.UserApi$patchUser(kotlin.String, com.example.project.dto.UserChangeDto)/username">username</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.project.controllers.api.user.UserApi$patchUser(kotlin.String, com.example.project.dto.UserChangeDto)/userChange">userChange</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.dto/-user-change-dto/index.html"><span class="identifier">UserChangeDto</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="post-new-user.html">postNewUser</a></h4>
+</td>
+<td>
+<p>Dodanie nowego użytkownika</p>
+<code><span class="keyword">fun </span><span class="identifier">postNewUser</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.user.UserApi$postNewUser(com.example.project.dto.UserChangeDto)/newUser">newUser</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.dto/-user-change-dto/index.html"><span class="identifier">UserChangeDto</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="update-user.html">updateUser</a></h4>
+</td>
+<td>
+<p>Zmiana danych użytkownika</p>
+<code><span class="keyword">fun </span><span class="identifier">updateUser</span><span class="symbol">(</span><span class="identifier" id="com.example.project.controllers.api.user.UserApi$updateUser(com.example.project.entity.User)/user">user</span><span class="symbol">:</span>&nbsp;<a href="../../com.example.project.entity/-user/index.html"><span class="identifier">User</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
