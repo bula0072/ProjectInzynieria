@@ -1,5 +1,8 @@
 package com.example.project.security;
 
+/**
+ * Stałe potrzebne do autoryzacji
+ */
 public class SecProperties {
     public static final String PASSWORD = "Password123";
     public static final int TIME = 172800000;

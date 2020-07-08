@@ -1,21 +1,28 @@
 package com.example.project.controllers.api.flight.service
 
 import com.example.project.controllers.api.airport.AirportApi
-import com.example.project.controllers.api.flight.FlightApi
 import com.example.project.dto.FlightBasicDto
 import com.example.project.dto.FlightNewDto
 import com.example.project.repository.FlightRepository
 import org.springframework.stereotype.Service
 import java.time.Instant
 
+/**
+ * Sprawdza poprawność portów lotniczych w kontekście lotu
+ */
 @Service
 class AirportValidator(
         private val airportApi: AirportApi,
         private val flightRepository: FlightRepository
 ) {
+    /**
+     * Sprawdzenie poprawności portów lotniczych
+     * @param flight parametry lotu
+     * @return true jeżeli porty lotnicze mogą zostać użyte
+     */
     fun validate(flight: FlightNewDto): Boolean {
         try {
-            combineTest(flight)
+            combine(flight)
         } catch (e: Exception) {
             println(e.message)
             return false
@@ -23,7 +30,13 @@ class AirportValidator(
         return true
     }
 
-    private fun combineTest(flight: FlightNewDto): String {
+    /**
+     * Sprawdza lotnisko startowe oraz lotnisko końcowe w aspekcie możliwości ich użycia.
+     * Np. jeżeli lotnisko startowe i lotnisko końcowe będzie tym samym lotniskiem, zwróci błąd.
+     * @param flight FlightNewDto
+     * @return String
+     */
+    private fun combine(flight: FlightNewDto): String {
         Instant.parse(flight.startDate)
         Instant.parse(flight.endDate)
 
@@ -42,6 +55,13 @@ class AirportValidator(
                 "\n end airport counter = ${flightCounter(flight, StartOrEndAirport.End)}"
     }
 
+    /**
+     * Sprawdza czy na konkretnym lotnisku (startowym lub końcowym) jest dostępne miejszcze
+     * na kolejny samolot.
+     * @param flight parametry lotu
+     * @param enum wybór które lotnisko ma być sprawdzone (stawrowe czy końcowe)
+     * @return ilość znalezionych samolotów będących w wyznaczonym czasie na danym lotnisku
+     */
     private fun flightCounter(flight: FlightNewDto, enum: StartOrEndAirport): Int {
         val airport = when (enum) {
             StartOrEndAirport.Start -> airportApi.getAirportByNameDto(flight.startAirport)

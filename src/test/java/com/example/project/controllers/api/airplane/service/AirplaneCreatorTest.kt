@@ -19,8 +19,6 @@ import org.springframework.boot.test.context.SpringBootTest
 @SpringBootTest
 @AutoConfigureTestDatabase
 internal class AirplaneCreatorTest @Autowired constructor(
-        private val userRepository: UserRepository,
-        private val userApi: UserApi,
         private val airplaneRepository: AirplaneRepository,
         private val airplaneCreator: AirplaneCreator,
         private val adminApi: AdminApi,

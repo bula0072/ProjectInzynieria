@@ -6,13 +6,20 @@ import com.example.project.repository.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
+/**
+ * Dodawanie użytkownika do bazy danych
+ */
 @Service
 class UserCreator(
         private val userRepository: UserRepository,
         private val passwordEncoder: PasswordEncoder
 ) {
 
-
+    /**
+     * Dodanie nowego użytkownika do bazy danych
+     * @param newUser dane nowego użytkownika
+     * @return true jeżeli użytkownik został dodany poprawny
+     */
     fun createUser(newUser: UserChangeDto): Boolean {
         try {
             create(newUser)
@@ -23,6 +30,13 @@ class UserCreator(
         return true
     }
 
+    /**
+     * Sprawdza poprawność danych wysłanych przez formularz rejstracyjny.
+     * Jeżeli dane będą poprawne, zostanie dodany nowy użytkownik do bazy danych.
+     * Jeżeli dane są niepoprawne, wyrzucany jest odpowiedni błąd
+     * @param newUser dane nowego użytkownika
+     * @return User
+     */
     fun create(newUser: UserChangeDto): User {
         if (newUser.email.isNullOrBlank() ||
                 !EmailValidator().validate(newUser.email)) throw Exception("${newUser.email} = błąd zły format lub pusty")

@@ -7,6 +7,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Klasa implementuje <code>UserDetailService</code>.
+ * Jest wykorzystywana przez DaoAuthenticationProvider
+ * do pobierania danych związanych z użytkownikiem
+ */
 @Service
 public class UserDetail implements UserDetailsService {
     private UserRepository userRepository;
@@ -18,7 +23,6 @@ public class UserDetail implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = this.userRepository.findByLogin(s);
-        UserPrincipal userPrincipal = new UserPrincipal(user);
-        return userPrincipal;
+        return new UserPrincipal(user);
     }
 }

@@ -8,12 +8,20 @@ import com.example.project.repository.TicketRepository
 import org.springframework.stereotype.Service
 import java.time.Instant
 
+/**
+ * Dodawanie nowego biletu
+ */
 @Service
 class TicketCreator(
         private val userApi: UserApi,
         private val flightApi: FlightApi,
         private val ticketRepository: TicketRepository
 ) {
+    /**
+     * Dodanie nowego lotu do bazy danych
+     * @param ticket parametry nowego biletu
+     * @return true jeżeli bilet został dodany poprawnie
+     */
     fun create(ticket: TicketNewDto): Boolean {
         try {
             creator(ticket)
@@ -23,6 +31,12 @@ class TicketCreator(
         return true
     }
 
+    /**
+     * Sprawdzanie formularza dodania nowego biletu oraz walidacja biletu.
+     * Jeżeli wszystko jest poprawnie to bilet zostaje dodany do bazy danych
+     * @param newTicket parametry biletu
+     * @return Ticket
+     */
     private fun creator(newTicket: TicketNewDto): Ticket {
         if (newTicket.flight == null) throw Exception("flight is null")
         val user = userApi.getUserByName(newTicket.user)

@@ -23,6 +23,7 @@ export class TicketService {
   }
 
   getAllTicketsByUsername(username: string): Observable<Array<TicketDTO>> {
+    console.log(username)
     return this.http.get<Array<TicketDTO>>(
       flightApi + 'user/' + username,
       {responseType: "json"}

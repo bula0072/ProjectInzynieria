@@ -7,14 +7,27 @@ import com.example.project.repository.FlightRepository
 import org.springframework.stereotype.Service
 import java.time.Instant
 
+/**
+ * Sprawdzenie czy dany samolot może być w danym czasie użyty
+ */
 @Service
 class AirplaneValidator(
         private val airplaneApi: AirplaneApi,
         private val flightRepository: FlightRepository
 ) {
+    /**
+     * Sprawdza możliwość użycia samolotu
+     * @param flight parametry lotu
+     * @return true, jeżeli samolot może zostać użyty
+     */
     fun validate(flight: FlightNewDto) =
             howManyFlightsThisPlaneHasAtThatMoment(flight) == 0
 
+    /**
+     * Sprawdza ile razy w danym czasie używany jest samolot
+     * @param flight paramtry lotu
+     * @return ilośc lotów, które w tym czasie używają wybrany samolot
+     */
     private fun howManyFlightsThisPlaneHasAtThatMoment(flight: FlightNewDto): Int {
         val plane = airplaneApi.getAirplaneByIdDto(flight.airplane)
         if (plane != null) {

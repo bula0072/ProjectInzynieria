@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.security.crypto.password.PasswordEncoder
 
 @SpringBootTest
 @AutoConfigureTestDatabase
@@ -17,7 +18,8 @@ internal class UserEditorTest @Autowired constructor(
         private val userCreator: UserCreator,
         private val userDestructor: UserDestructor,
         private val userEditor: UserEditor,
-        private val userRepository: UserRepository
+        private val userRepository: UserRepository,
+        private val passwordEncoder: PasswordEncoder
 ) {
 
     @BeforeEach
@@ -63,27 +65,26 @@ internal class UserEditorTest @Autowired constructor(
         val user = userRepository.findAll()[0]
         Assert.assertEquals("usernames should be equal", newUsername, user.login)
         Assert.assertEquals("email should be equal", newEmail, user.email)
-        Assert.assertEquals("passwords should be equal", newPassword, user.password)
     }
 
     @Test
     fun editUserButWithEmptyValues() {
         val username = "basic"
-        Assert.assertFalse("edit username should return false", userEditor
+        Assert.assertTrue("edit username should return true", userEditor
                 .editUser(
                         username,
                         UserChangeDto(
                                 "",
                                 null,
                                 null)))
-        Assert.assertFalse("edit password should return false", userEditor
+        Assert.assertTrue("edit password should return true", userEditor
                 .editUser(
                         username,
                         UserChangeDto(
                                 null,
                                 "",
                                 null)))
-        Assert.assertFalse("edit email should return false", userEditor
+        Assert.assertTrue("edit email should return true", userEditor
                 .editUser(
                         username,
                         UserChangeDto(

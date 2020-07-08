@@ -5,10 +5,19 @@ import com.example.project.entity.Airport
 import com.example.project.repository.AirportRepository
 import org.springframework.stereotype.Service
 
+/**
+ * Obsługuje system edycji portu lotniczego
+ */
 @Service
 class AirportEditor(
         private val airportRepository: AirportRepository
 ) {
+    /**
+     * Obsługuje błędy wywołane przez <code>editor()</code>
+     * @param name stara nazwa portu lotniczego
+     * @param airport nowe parametry portu lotniczego
+     * @return true w przypadku braku błędów
+     */
     fun edit(name: String?, airport: AirportChangeDto): Boolean {
         try {
             editor(name, airport)
@@ -19,6 +28,11 @@ class AirportEditor(
         return true
     }
 
+    /**
+     * Obsługuje błędy wywołane przez <code>setter()</code>
+     * @param name nazwa portu lotniczego
+     * @return true w przypadku braku błędów
+     */
     fun setActivity(name: String?): Boolean {
         try {
             setter(name)
@@ -29,6 +43,11 @@ class AirportEditor(
         return true
     }
 
+    /**
+     * Zmienia wartość <code>active</code> za false na true i odwrotnie
+     * @param name nazwa portu lotniczego
+     * @return Airport
+     */
     private fun setter(name: String?): Airport {
         if (!airportRepository.existsByName(name))
             throw Exception("Airport nie istnieje")
@@ -37,15 +56,17 @@ class AirportEditor(
         return airportRepository.save(airport)
     }
 
+    /**
+     * Sprawdza dane wysłane przez formularz zmiany danych portu lotniczego i
+     * w przypadku braku błędów modyfikuje dane portu lotniczego
+     * @param name stara nazwa portu lotniczego
+     * @param newAirport nowe dane portu lotniczego
+     * @return Airport
+     */
     private fun editor(name: String?, newAirport: AirportChangeDto): Airport {
         if (!airportRepository.existsByName(name))
             throw Exception("Airport nie istnieje")
         val airport = airportRepository.findAirportByName(name)
-
-
-
-
-
 
         if (airport == null || airport.active == true)
             throw Exception("airport jest null lub active jest true")
@@ -75,6 +96,4 @@ class AirportEditor(
         }
         return airportRepository.save(airport)
     }
-
-
 }

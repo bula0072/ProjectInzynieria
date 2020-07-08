@@ -21,9 +21,11 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Inicjalizacja przykładowych danych
+ */
 @Component
 public class InitEntities implements CommandLineRunner {
-
 	@Autowired
 	TicketRepository ticketRepository;
 	@Autowired

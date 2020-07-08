@@ -6,11 +6,19 @@ import com.example.project.entity.Airplane
 import com.example.project.repository.AirplaneRepository
 import org.springframework.stereotype.Service
 
+/**
+ * Obsługuje system dodawania nowego samolotu do bazy danych
+ */
 @Service
 class AirplaneCreator(
         private val airplaneRepository: AirplaneRepository,
         private val userApi: UserApi
 ) {
+    /**
+     * Obsługuje możliwe błędy wyrzucone przez <code>creator()</code>
+     * @param airplane dane nowego samolotu
+     * @return true w przypadku braku błędów
+     */
     fun create(airplane: AirplaneNewDto): Boolean {
         try {
             creator(airplane)
@@ -21,6 +29,12 @@ class AirplaneCreator(
         return true
     }
 
+    /**
+     * Sprawdza proprawność danych wysłanych przez formularz i dodaje do
+     * bazy nowy samolot w przypadku proprawnych danych
+     * @param airplane dane nowego samolotu
+     * @return Airplane
+     */
     fun creator(airplane: AirplaneNewDto): Airplane {
         if (airplane.name.isNullOrEmpty()) throw Exception("ap name null or blank")
         val user = userApi.getUserByName(airplane.user)

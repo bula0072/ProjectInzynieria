@@ -4,11 +4,18 @@ import com.example.project.entity.Airplane
 import com.example.project.repository.AirplaneRepository
 import org.springframework.stereotype.Service
 
+/**
+ * Obsługuje usuwanie samolotu z bazy danych
+ */
 @Service
 class AirplaneDestructor(
         private val airplaneRepository: AirplaneRepository
 ) {
-    // TODO ograniczyć możliwość do właścicieli i administratorów
+    /**
+     * Usuwa konktretny samolot
+     * @param id id samolotu którego użytkownik chce usunąć
+     * @return true w przypadku braku błędów
+     */
     fun delete(id: Long?): Boolean {
         return when {
             id == null -> false
@@ -20,6 +27,10 @@ class AirplaneDestructor(
         }
     }
 
+    /**
+     * Usuwa wszystkie samoloty z bazy danych
+     * @return true w przypadku braku błędów
+     */
     fun deleteAll(): Boolean {
         try {
             airplaneRepository.deleteAll()

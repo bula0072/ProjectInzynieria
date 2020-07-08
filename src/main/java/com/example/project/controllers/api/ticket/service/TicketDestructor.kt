@@ -6,10 +6,17 @@ import com.example.project.repository.TicketRepository
 import org.springframework.stereotype.Service
 import java.time.Instant
 
+/**
+ * Usunięcie biletu z bazy danych
+ */
 @Service
 class TicketDestructor(
         private val ticketRepository: TicketRepository
 ) {
+    /**
+     * Usunięcie wszystkich biletów z bazy danych
+     * @return true jeżeli nie było żanych błędów
+     */
     fun deleteAll(): Boolean {
         try {
             ticketRepository.deleteAll()
@@ -19,6 +26,11 @@ class TicketDestructor(
         return true
     }
 
+    /**
+     * Usunięcie konkretnego biletu
+     * @param id id biletu
+     * @return true jeżeli nie było żadnych błędów
+     */
     fun delete(id: Long): Boolean {
         try {
             destructor(id)
@@ -28,6 +40,11 @@ class TicketDestructor(
         return true
     }
 
+    /**
+     * Sprawdzenie, czy bilet można usunąć. Jeżeli można, to bilet zostaje usunięty.
+     * W przeciwyn wypadku wyrzuca błąd
+     * @param id id biletu
+     */
     private fun destructor(id: Long) {
         val ticket = TicketBasicDto(ticketRepository.findTicketById(id))
         if (Instant.now().isAfter(ticket.flight.startDate.minusSeconds(1800)))
